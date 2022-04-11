@@ -34,9 +34,15 @@ class DanhMucMAController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        //
+        $add = DanhMucMA::create($request->all());
+        if($add){
+            return redirect()->route('danhmucmonan.index')->with('success','Thêm mới thành công');
+        }
+        return redirect()->back()->with('error','Thêm mới thất bại');
+        // dd($add);
     }
 
     /**
@@ -45,9 +51,10 @@ class DanhMucMAController extends Controller
      * @param  \App\Models\DanhMucMA  $danhMucMA
      * @return \Illuminate\Http\Response
      */
-    public function show(DanhMucMA $danhMucMA)
+    public function show($danhMucMA)
     {
-        return view('admin.danhmucmonan.show');
+        $data = DanhMucMA::find($danhMucMA);
+        return view('admin.danhmucmonan.show',compact('data'));
     }
 
     /**
@@ -68,9 +75,12 @@ class DanhMucMAController extends Controller
      * @param  \App\Models\DanhMucMA  $danhMucMA
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DanhMucMA $danhMucMA)
+    public function update(Request $request, $danhMucMA)
     {
-        //
+        $data = DanhMucMA::find($danhMucMA);
+        $data->tendm = $request->tendm;
+        $data->save();
+        return redirect()->route('danhmucmonan.index');
     }
 
     /**
@@ -79,8 +89,10 @@ class DanhMucMAController extends Controller
      * @param  \App\Models\DanhMucMA  $danhMucMA
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DanhMucMA $danhMucMA)
+    public function destroy($danhMucMA)
     {
-        //
+        $data = DanhMucMA::find($danhMucMA);
+        $data->delete();
+        return redirect()->route('danhmucmonan.index');
     }
 }

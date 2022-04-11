@@ -56,68 +56,63 @@
     </style>
     <div class="checkform">
         <div class="content">
-            <h3>THÊM MỚI MÓN ĂN</h3>
-            <form action="{{route('monan.store')}}" method="post" enctype="multipart/form-data">
+            <h3>CẬP NHÂT MÓN ĂN</h3>
+            <form action="{{ route('monan.update', [$data->id]) }}" method="post">
+                @method('PUT')
                 @csrf
                 <div class="form-horizontal">
                     <hr />
                     {{-- <div class="form-group1">
-                        <label for="mama" class="control-label col-md-4"><b>Mã món ăn: </b></label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control text-box single-line" id="mama" name="mama">
+                        <label for="id" class="control-label col-md-5"><b>Mã đơn vị: </b></label>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control text-box single-line" value="{{ $data->id }}" id="id"
+                                name="id" readonly>
                         </div>
                     </div> --}}
-
                     <div class="form-group1">
                         <label for="tenmonan" class="control-label col-md-4"><b>Tên món ăn: </b></label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control text-box single-line" id="tenmonan" name="tenmonan">
+                            <input type="text" value="{{ $data->tenmonan }}" class="form-control text-box single-line" id="tenmonan" name="tenmonan">
                         </div>
                     </div>
 
                     <div class="form-group1">
                         <label for="gia" class="control-label col-md-4"><b>Giá: </b></label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control text-box single-line" id="gia" name="gia">
+                            <input type="text" value="{{ $data->gia }}" class="form-control text-box single-line" id="gia" name="gia">
                         </div>
                     </div>
 
                     <div class="form-group1">
                         <label for="mota" class="control-label col-md-4"><b>Mô tả: </b></label>
                         <div class="col-md-8">
-                            {{-- <input type="text" class="form-control text-box single-line" id="mota" name="mota"> --}}
-                            <textarea id="mota" class="form-control text-box" name="mota" rows="3"></textarea>
+                            {{-- <textarea id="mota" class="form-control text-box" name="mota" rows="3"></textarea> --}}
+                            <textarea id="mota" class="form-control text-box" name="mota">{{ $data->mota }}</textarea>
                         </div>
                     </div>
 
                     <div class="form-group1">
                         <label for="hinhanh" class="control-label col-md-4"><b>Ảnh món ăn: </b></label>
                         <div class="col-md-8">
-                            <input type="text" id="hinhanh" name="hinhanh">
+                            <input type="text" value="{{ $data->hinhanh }}" id="hinhanh" name="hinhanh">
                         </div>
                     </div>
-
-                    {{-- <div class="form-group1">
-                        <label for="ngaythem" class="control-label col-md-4"><b>Ngày thêm: </b></label>
-                        <div class="col-md-8">
-                            <input type="date" class="form-control text-box single-line" id="ngaythem" name="ngaythem">
-                        </div>
-                    </div> --}}
 
                     <div class="form-group1">
                         <label for="tinhtrang" class="control-label col-md-4"><b>Tình trạng: </b></label>
                         <div class="col-md-8">
-                            <input type="checkbox" name="tinhtrang" value="1"> Còn hàng
+                            <input type="checkbox" name="tinhtrang" value="{{$data->tinhtrang}}" checked> Còn bán
+                                                        
                         </div>
                     </div>
 
                     <div class="form-group1">
                         <label for="donvitinh" class="control-label col-md-4"><b>Đơn vị tính: </b></label>
                         <div class="col-md-8">
-                            <select name="donvitinh" class="form-control text-box single-line">
-                                <option value="" class="form-control">Đơn vị tính</option>
-                                @foreach ($donvitinh as $dm)
-                                    <option value="{{ $dm->id }}" class="form-control">{{ $dm->tendvt }}</option>
+                            <select name="donvitinh" class="form-control" >
+                                @foreach ($donvitinhs as $dvt)
+                                    <option {{ $dvt->id == $data->donvitinh ? 'selected' : '' }}
+                                        value="{{ $dvt->id }}">{{ $dvt->tendvt }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -126,17 +121,18 @@
                     <div class="form-group1">
                         <label for="danhmuc" class="control-label col-md-4"><b>Loại món ăn: </b></label>
                         <div class="col-md-8">
-                            <select name="danhmuc" class="form-control text-box single-line">
-                                <option value="" class="form-control">Danh mục món ăn</option>
-                                @foreach ($danhmuc as $dm)
-                                    <option value="{{ $dm->id }}" class="form-control">{{ $dm->tendm }}</option>
+                            <select name="danhmuc" class="form-control" >
+                                @foreach ($danhmucs as $key => $dm)
+                                    <option {{ $dm->id == $data->danhmuc ? 'selected' : '' }}
+                                        value="{{ $dm->id }}">{{ $dm->tendm }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group" style="align-items: baseline;">
                         <div style="margin-top: 10px;" class="col-md-offset-2 col-md-6">
-                            <input type="submit" name="them" value="Thêm mới" class="btn btn-primary" />
+                            <input type="submit" name="them" value="Cập nhật" class="btn btn-primary" />
                         </div>
 
                         <div class="col-md-offset-2 col-md-6 comback_div">

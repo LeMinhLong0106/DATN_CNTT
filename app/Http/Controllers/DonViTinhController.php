@@ -36,7 +36,11 @@ class DonViTinhController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $add = DonViTinh::create($request->all());
+        if ($add) {
+            return redirect()->route('donvitinh.index')->with('success', 'Thêm mới thành công');
+        }
+        return redirect()->back()->with('error', 'Thêm mới thất bại');
     }
 
     /**
@@ -45,9 +49,10 @@ class DonViTinhController extends Controller
      * @param  \App\Models\DonViTinh  $donViTinh
      * @return \Illuminate\Http\Response
      */
-    public function show(DonViTinh $donViTinh)
+    public function show($donViTinh)
     {
-        return view('admin.donvitinh.show');
+        $data = DonViTinh::find($donViTinh);
+        return view('admin.donvitinh.show', compact('data'));
     }
 
     /**
@@ -68,9 +73,12 @@ class DonViTinhController extends Controller
      * @param  \App\Models\DonViTinh  $donViTinh
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DonViTinh $donViTinh)
+    public function update(Request $request, $donViTinh)
     {
-        //
+        $data = DonViTinh::find($donViTinh);
+        $data->tendvt = $request->tendvt;
+        $data->save();
+        return redirect()->route('donvitinh.index');
     }
 
     /**
@@ -79,8 +87,10 @@ class DonViTinhController extends Controller
      * @param  \App\Models\DonViTinh  $donViTinh
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DonViTinh $donViTinh)
+    public function destroy($donViTinh)
     {
-        //
+        $data = DonViTinh::find($donViTinh);
+        $data->delete();
+        return redirect()->back();
     }
 }

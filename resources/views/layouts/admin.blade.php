@@ -46,7 +46,7 @@
                 </a>
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
-                @if (Auth::user()->manhom == 'ADMIN')
+                @if (Auth::user()->name == 'long')
                     <!-- Divider -->
                     <hr class="sidebar-divider my-0">
 
@@ -66,7 +66,7 @@
                     </div>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{route('ban.index')}}">
                             <i class="fas fa-fw fa-table"></i>
                             <span>Bàn</span></a>
                     </li>
@@ -80,9 +80,9 @@
                         <div id="collapse_1" class="collapse" aria-labelledby="headingTwo"
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <a class="collapse-item" href="#">Danh mục</a>
-                                <a class="collapse-item" href="#">Đơn vị</a>
-                                <a class="collapse-item" href="#">Món ăn</a>
+                                <a class="collapse-item" href="{{route('danhmucmonan.index')}}">Danh mục</a>
+                                <a class="collapse-item" href="{{route('donvitinh.index')}}">Đơn vị</a>
+                                <a class="collapse-item" href="{{route('monan.index')}}">Món ăn</a>
                             </div>
                         </div>
                     </li>
@@ -148,7 +148,7 @@
                             <span>Phân quyền</span></a>
                     </li>
                 @endif
-                @if (Auth::user()->manhom == 'NVTN')
+                @if (Auth::user()->manhom == 'tien')
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <i class="fas fa-user-lock"></i>

@@ -19,11 +19,18 @@
             <tbody>
                 @foreach ($data as $item)
                     <tr>
-                        <td>{{ $item->MaMDMA }}</td>
-                        <td>{{ $item->TenDMMA }}</td>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->tendm }}</td>
                         <td>
-                            <a href=""><i class='fa fa-edit'></i></a>&nbsp;|&nbsp;
-                            <a href=""><i class='fa fa-trash'></i></a>
+                            {{-- <a href=""><i class='fa fa-edit'></i></a>&nbsp;|&nbsp;
+                            <a href=""><i class='fa fa-trash'></i></a> --}}
+                            <a href="{{ route('danhmucmonan.show', [$item->id]) }} " class="fa fa-edit"></a>
+
+                            <form action="{{ route('danhmucmonan.destroy', [$item->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="fa fa-trash"></button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

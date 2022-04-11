@@ -19,6 +19,7 @@ class MonAnController extends Controller
         $data = MonAn::all();
         $danhmuc = DanhMucMA::get();
         $donvitinh = DonViTinh::get();
+        // $date = date('Y-m-d');
         return view('admin.monan.index', compact('data', 'danhmuc', 'donvitinh'));
         // dd($danhmuc);
     }
@@ -44,7 +45,11 @@ class MonAnController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $add = MonAn::create($request->all());
+        if ($add) {
+            return redirect()->route('monan.index')->with('success', 'Thêm mới thành công');
+        }
+        return redirect()->back()->with('error', 'Thêm mới thất bại');
     }
 
     /**
@@ -53,9 +58,12 @@ class MonAnController extends Controller
      * @param  \App\Models\MonAn  $monAn
      * @return \Illuminate\Http\Response
      */
-    public function show(MonAn $monAn)
+    public function show($monAn)
     {
-        //
+        $data = MonAn::find($monAn);
+        $danhmucs = DanhMucMA::all();
+        $donvitinhs = DonViTinh::all();
+        return view('admin.monan.show', compact('data', 'danhmucs', 'donvitinhs'));
     }
 
     /**
@@ -76,9 +84,18 @@ class MonAnController extends Controller
      * @param  \App\Models\MonAn  $monAn
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MonAn $monAn)
+    public function update(Request $request,  $monAn)
     {
-        //
+        $data = MonAn::find($monAn);
+        $data->tenmonan = $request->tenmonan;
+        $data->tinhtrang = $request->tinhtrang;
+        $data->mota = $request->mota;
+        $data->hinhanh = $request->hinhanh;
+        $data->gia = $request->gia;
+        $data->donvitinh = $request->donvitinh;
+        $data->danhmuc = $request->danhmuc;
+        $data->save();
+        return redirect()->route('monan.index');
     }
 
     /**
@@ -87,8 +104,10 @@ class MonAnController extends Controller
      * @param  \App\Models\MonAn  $monAn
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MonAn $monAn)
+    public function destroy($monAn)
     {
-        //
+        $data = MonAn::find($monAn);
+        $data->delete();
+        return redirect()->route('monan.index');
     }
 }

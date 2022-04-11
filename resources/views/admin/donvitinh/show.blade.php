@@ -6,7 +6,6 @@
             display: flex;
             justify-content: center;
             margin-top: 2rem;
-            margin-bottom: 2rem;
 
         }
 
@@ -57,28 +56,30 @@
     </style>
     <div class="checkform">
         <div class="content">
-            <h3>THÊM MỚI ĐƠN VỊ TÍNH</h3>
-            <form action="{{route('donvitinh.store')}}" method="post">
+            <h3>CẬP NHÂT ĐƠN VỊ</h3>
+            <form action="{{ route('donvitinh.update', [$data->id]) }}" method="post">
+                @method('PUT')
                 @csrf
                 <div class="form-horizontal">
                     <hr />
-                    {{-- <div class="form-group1">
-                        <label for="MaDVT" class="control-label col-md-5"><b>Mã đơn vị tính: </b></label>
-                        <div class="col-md-7">
-                            <input type="text" class="form-control text-box single-line" id="MaDVT" name="MaDVT">
-                        </div>
-                    </div> --}}
-
                     <div class="form-group1">
-                        <label for="tendvt" class="control-label col-md-5"><b>Tên đơn vị tính: </b></label>
+                        <label for="id" class="control-label col-md-5"><b>Mã đơn vị: </b></label>
                         <div class="col-md-7">
-                            <input type="text" class="form-control text-box single-line" id="tendvt" name="tendvt">
+                            <input type="text" class="form-control text-box single-line" value="{{ $data->id }}" id="id"
+                                name="id" readonly>
                         </div>
                     </div>
-                    
+                    <div class="form-group1">
+                        <label for="tendvt" class="control-label col-md-5"><b>Tên đơn vị: </b></label>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control text-box single-line" value="{{ $data->tendvt }}"
+                                id="tendvt" name="tendvt">
+                        </div>
+                    </div>
+
                     <div class="form-group" style="align-items: baseline;">
                         <div style="margin-top: 10px;" class="col-md-offset-2 col-md-6">
-                            <input type="submit" name="them" value="Thêm mới" class="btn btn-primary" />
+                            <input type="submit" name="them" value="Cập nhật" class="btn btn-primary" />
                         </div>
 
                         <div class="col-md-offset-2 col-md-6 comback_div">

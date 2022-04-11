@@ -57,60 +57,31 @@
     <div class="checkform">
         <div class="content">
             <h3>THÊM MỚI ĐỒ UỐNG</h3>
-            <form action="DoUong/Store" method="post" enctype="multipart/form-data">
+            <form action="{{ route('ban.store') }}" method="post">
+                @csrf
                 <div class="form-horizontal">
                     <hr />
+                    {{-- <div class="form-group1">
+                        <label for="MaBan" class="control-label col-md-5"><b>Mã bàn: </b></label>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control text-box single-line" id="MaBan" name="MaBan">
+                        </div>
+                    </div> --}}
+
                     <div class="form-group1">
-                        <label for="madu" class="control-label col-md-4"><b>Mã đồ uống: </b></label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control text-box single-line" id="madu" name="madu" readonly>
+                        <label for="Ghe" class="control-label col-md-5"><b>Số ghế: </b></label>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control text-box single-line" id="Ghe" name="Ghe">
                         </div>
                     </div>
 
                     <div class="form-group1">
-                        <label for="tendu" class="control-label col-md-4"><b>Tên đồ uống: </b></label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control text-box single-line" id="tendu" name="tendu">
+                        <label for="TinhTrang" class="control-label col-md-5"><b>Tình trạng: </b></label>
+                        <div class="col-md-7">
+                            <input type="checkbox" name="TinhTrang" value="1"> Trống
                         </div>
                     </div>
 
-                    <div class="form-group1">
-                        <label for="dongia" class="control-label col-md-4"><b>Giá: </b></label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control text-box single-line" id="dongia" name="dongia">
-                        </div>
-                    </div>
-
-                    <div class="form-group1">
-                        <label for="hinh" class="control-label col-md-4"><b>Ảnh đồ uống: </b></label>
-                        <div class="col-md-8">
-                            <input type="file" id="hinh" name="hinh">
-                        </div>
-                    </div>
-
-                    <div class="form-group1">
-                        <label for="ngaythem" class="control-label col-md-4"><b>Ngày thêm: </b></label>
-                        <div class="col-md-8">
-                            <input type="date" class="form-control text-box single-line" id="ngaythem" name="ngaythem">
-                        </div>
-                    </div>
-
-                    <div class="form-group1">
-                        <label for="banchay" class="control-label col-md-4"><b>Bán chạy: </b></label>
-                        <div class="col-md-8">
-                            <input type="checkbox" name="banchay" value="1"> Bán chạy
-                        </div>
-                    </div>
-
-                    <div class="form-group1">
-                        <label for="loaiDU" class="control-label col-md-4"><b>Loại đồ uống: </b></label>
-                        <div class="col-md-8">
-                            <select name="loaiDU" class="form-control text-box single-line">
-                                <option value="1" class="form-control">1</option>
-                                <option value="2" class="form-control">2</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="form-group" style="align-items: baseline;">
                         <div style="margin-top: 10px;" class="col-md-offset-2 col-md-6">
                             <input type="submit" name="them" value="Thêm mới" class="btn btn-primary" />

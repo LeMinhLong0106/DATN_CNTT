@@ -20,17 +20,34 @@
             <tbody>
                 @foreach ($data as $item)
                     <tr>
-                        <td>{{ $item->MaBan }}</td>
-                        <td>{{ $item->Ghe }}</td>
-                        <td>{{ $item->TinhTrang }}</td>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->ghe }}</td>
+                        {{-- <td>{{ $item->tinhtrang }}</td> --}}
                         <td>
-                            <a href=""><i class='fa fa-edit'></i></a>&nbsp;|&nbsp;
-                            <a href=""><i class='fa fa-trash'></i></a>
+                            @if ($item->tinhtrang == 1)
+                                <span class="badge badge-success">Trống</span>
+                            @else
+                                <span class="badge badge-danger">Đang sử dụng</span>
+                            @endif
+                        <td>
+                            {{-- <a href=""><i class='fa fa-edit'></i></a>&nbsp;|&nbsp;
+                            <a href=""><i class='fa fa-trash'></i></a> --}}
+
+                            {{-- <a href="{{ route('ban.show') }}"><i class='fa fa-edit'></i></a>&nbsp;|&nbsp; --}}
+                            {{-- <a href=""><i class='fa fa-trash'></i></a> --}}
+                            <a href="{{ route('ban.show', [$item->id]) }} " class="fa fa-edit"></a>
+
+                            <form action="{{ route('ban.destroy', [$item->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="fa fa-trash"></button>
+                            </form>
+
                         </td>
                     </tr>
                 @endforeach
             </tbody>
-            
+
         </table>
         {{-- <div class="d-flex justify-content-center">
             {{ $data->links() }}

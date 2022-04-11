@@ -56,68 +56,32 @@
     </style>
     <div class="checkform">
         <div class="content">
-            <h3>THÊM MỚI ĐỒ UỐNG</h3>
-            <form action="DoUong/Store" method="post" enctype="multipart/form-data">
+            <h3>THÊM MỚI DANH MỤC</h3>
+            <form action="{{route('danhmucmonan.store')}}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="form-horizontal">
                     <hr />
+                    {{-- <div class="form-group1">
+                        <label for="MaMDMA" class="control-label col-md-5"><b>Mã danh mục: </b></label>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control text-box single-line" id="MaMDMA" name="MaMDMA">
+                        </div>
+                    </div> --}}
+
                     <div class="form-group1">
-                        <label for="madu" class="control-label col-md-4"><b>Mã đồ uống: </b></label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control text-box single-line" id="madu" name="madu" readonly>
+                        <label for="tendm" class="control-label col-md-5"><b>Tên danh mục: </b></label>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control text-box single-line" id="tendm" name="tendm">
                         </div>
                     </div>
 
-                    <div class="form-group1">
-                        <label for="tendu" class="control-label col-md-4"><b>Tên đồ uống: </b></label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control text-box single-line" id="tendu" name="tendu">
-                        </div>
-                    </div>
-
-                    <div class="form-group1">
-                        <label for="dongia" class="control-label col-md-4"><b>Giá: </b></label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control text-box single-line" id="dongia" name="dongia">
-                        </div>
-                    </div>
-
-                    <div class="form-group1">
-                        <label for="hinh" class="control-label col-md-4"><b>Ảnh đồ uống: </b></label>
-                        <div class="col-md-8">
-                            <input type="file" id="hinh" name="hinh">
-                        </div>
-                    </div>
-
-                    <div class="form-group1">
-                        <label for="ngaythem" class="control-label col-md-4"><b>Ngày thêm: </b></label>
-                        <div class="col-md-8">
-                            <input type="date" class="form-control text-box single-line" id="ngaythem" name="ngaythem">
-                        </div>
-                    </div>
-
-                    <div class="form-group1">
-                        <label for="banchay" class="control-label col-md-4"><b>Bán chạy: </b></label>
-                        <div class="col-md-8">
-                            <input type="checkbox" name="banchay" value="1"> Bán chạy
-                        </div>
-                    </div>
-
-                    <div class="form-group1">
-                        <label for="loaiDU" class="control-label col-md-4"><b>Loại đồ uống: </b></label>
-                        <div class="col-md-8">
-                            <select name="loaiDU" class="form-control text-box single-line">
-                                <option value="1" class="form-control">1</option>
-                                <option value="2" class="form-control">2</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="form-group" style="align-items: baseline;">
                         <div style="margin-top: 10px;" class="col-md-offset-2 col-md-6">
                             <input type="submit" name="them" value="Thêm mới" class="btn btn-primary" />
                         </div>
 
                         <div class="col-md-offset-2 col-md-6 comback_div">
-                            <a class="comeback" href="{{ route('ban.index') }}">Quay lại</a>
+                            <a class="comeback" href="{{ route('danhmucmonan.index') }}">Quay lại</a>
 
                         </div>
                     </div>

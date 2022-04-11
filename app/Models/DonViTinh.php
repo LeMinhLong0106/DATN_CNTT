@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class DonViTinh extends Model
 {
-    protected $table = 'donvitinh';
+    public $timestamps = false;
+    protected $table = 'don_vi_tinhs';
     protected $fillable = [
-        'MaDonViTinh', 'TenDonViTinh',
+         'tendvt'
     ];
 }

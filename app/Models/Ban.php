@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ban extends Model
 {
-    protected $table = 'ban';
+    public $timestamps = false;
+    protected $table = 'bans';
     protected $fillable = [
-        'MaBan', 'Ghe', 'TinhTrang',
+        'Ghe', 'TinhTrang',
     ];
 }

@@ -14,8 +14,9 @@ class BanController extends Controller
      */
     public function index()
     {
-        $data = Ban::all();
+        $data = Ban::all(); // lấy toàn bộ dữ liệu từ bảng ban
         return view('admin.ban.index',compact('data'));
+        // return Ban::all();
     }
 
     /**
@@ -36,7 +37,11 @@ class BanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $add = Ban::create($request->all());
+        if($add){
+            return redirect()->route('ban.index')->with('success','Thêm mới thành công');
+        }
+        return redirect()->back()->with('error','Thêm mới thất bại');
     }
 
     /**
@@ -45,11 +50,19 @@ class BanController extends Controller
      * @param  \App\Models\Ban  $ban
      * @return \Illuminate\Http\Response
      */
-    public function show(Ban $ban)
-    {
-        return view('admin.ban.show');
-    }
+    // public function show(Ban $ban)
+    // {
+    //     return view('admin.ban.show');
+    // }
 
+    public function show($ban)
+    {
+        // return view('admin.ban.show');
+        // return Ban::find($ban);
+        $data = Ban::find($ban);
+        return view('admin.ban.show', compact('data'));
+    }
+    
     /**
      * Show the form for editing the specified resource.
      *
@@ -68,9 +81,13 @@ class BanController extends Controller
      * @param  \App\Models\Ban  $ban
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ban $ban)
+    public function update(Request $request, $ban)
     {
-        //
+        $data = Ban::find($ban);
+        $data->ghe = $request->ghe;
+        $data->tinhtrang = $request->tinhtrang;
+        $data->save();
+        return redirect()->route('ban.index');
     }
 
     /**
@@ -79,8 +96,10 @@ class BanController extends Controller
      * @param  \App\Models\Ban  $ban
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ban $ban)
+    public function destroy($ban)
     {
-        //
+        $data = Ban::find($ban);
+        $data->delete();
+        return redirect()->back();
     }
 }

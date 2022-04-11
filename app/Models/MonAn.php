@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MonAn extends Model
 {
-    protected $table = 'monan';
+    protected $table = 'mon_ans';
     protected $fillable = [
-        'MaMonAn', 'TenMonAn', 'NgayThem', 'TinhTrang', 'MoTa', 'HinhAnh', 'Gia', 'MaDVT', 'MaDanhMuc'
+        'tenmonan', 'tinhtrang', 'mota', 'hinhanh', 'gia', 'donvitinh', 'danhmuc', 'created_at'
     ];
 }
