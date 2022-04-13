@@ -57,7 +57,7 @@
     <div class="checkform">
         <div class="content">
             <h3>THÊM MỚI MÓN ĂN</h3>
-            <form action="{{route('monan.store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('monan.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-horizontal">
                     <hr />
@@ -71,14 +71,15 @@
                     <div class="form-group1">
                         <label for="tenmonan" class="control-label col-md-4"><b>Tên món ăn: </b></label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control text-box single-line" id="tenmonan" name="tenmonan">
+                            <input type="text" class="form-control text-box single-line" id="tenmonan" name="tenmonan"
+                                required>
                         </div>
                     </div>
 
                     <div class="form-group1">
                         <label for="gia" class="control-label col-md-4"><b>Giá: </b></label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control text-box single-line" id="gia" name="gia">
+                            <input type="number" class="form-control text-box single-line" id="gia" name="gia" required>
                         </div>
                     </div>
 
@@ -86,14 +87,14 @@
                         <label for="mota" class="control-label col-md-4"><b>Mô tả: </b></label>
                         <div class="col-md-8">
                             {{-- <input type="text" class="form-control text-box single-line" id="mota" name="mota"> --}}
-                            <textarea id="mota" class="form-control text-box" name="mota" rows="3"></textarea>
+                            <textarea id="mota" class="form-control text-box" name="mota" rows="3" required></textarea>
                         </div>
                     </div>
 
                     <div class="form-group1">
                         <label for="hinhanh" class="control-label col-md-4"><b>Ảnh món ăn: </b></label>
                         <div class="col-md-8">
-                            <input type="text" id="hinhanh" name="hinhanh">
+                            <input type="file" id="hinhanh" name="hinhanh" required>
                         </div>
                     </div>
 
@@ -107,14 +108,15 @@
                     <div class="form-group1">
                         <label for="tinhtrang" class="control-label col-md-4"><b>Tình trạng: </b></label>
                         <div class="col-md-8">
-                            <input type="checkbox" name="tinhtrang" value="1"> Còn hàng
+                            <input type="radio" name="tinhtrang" value="1" checked> Còn
+                            <input type="radio" name="tinhtrang" value="0"> Hết
                         </div>
                     </div>
 
                     <div class="form-group1">
                         <label for="donvitinh" class="control-label col-md-4"><b>Đơn vị tính: </b></label>
                         <div class="col-md-8">
-                            <select name="donvitinh" class="form-control text-box single-line">
+                            <select name="donvitinh" class="form-control text-box single-line" required>
                                 <option value="" class="form-control">Đơn vị tính</option>
                                 @foreach ($donvitinh as $dm)
                                     <option value="{{ $dm->id }}" class="form-control">{{ $dm->tendvt }}</option>
@@ -126,7 +128,7 @@
                     <div class="form-group1">
                         <label for="danhmuc" class="control-label col-md-4"><b>Loại món ăn: </b></label>
                         <div class="col-md-8">
-                            <select name="danhmuc" class="form-control text-box single-line">
+                            <select name="danhmuc" class="form-control text-box single-line" required>
                                 <option value="" class="form-control">Danh mục món ăn</option>
                                 @foreach ($danhmuc as $dm)
                                     <option value="{{ $dm->id }}" class="form-control">{{ $dm->tendm }}</option>

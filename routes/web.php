@@ -33,10 +33,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('donvitinh', 'DonViTinhController');
     // Route::resource('dsquyen', 'DSQuyenController');
     // Route::resource('hdonline', 'HDOnlineController');
-    // Route::resource('hdtaiquay', 'HDTaiQuayController');
+    Route::resource('hdtaiquay', 'HDTaiQuayController');
     // Route::resource('khachhang', 'KhachHangController');
     Route::resource('monan', 'MonAnController');
-    // Route::resource('nhanvien', 'NhanVienController');
+    Route::resource('order', 'OrderController');
+    Route::resource('nhanvien', 'NhanVienController');
     // Route::resource('nhomnv', 'NhomNVController');
     // Route::resource('quyen', 'QuyenController');
 });

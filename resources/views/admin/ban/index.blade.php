@@ -30,13 +30,8 @@
                                 <span class="badge badge-danger">Đang sử dụng</span>
                             @endif
                         <td>
-                            {{-- <a href=""><i class='fa fa-edit'></i></a>&nbsp;|&nbsp;
-                            <a href=""><i class='fa fa-trash'></i></a> --}}
-
-                            {{-- <a href="{{ route('ban.show') }}"><i class='fa fa-edit'></i></a>&nbsp;|&nbsp; --}}
-                            {{-- <a href=""><i class='fa fa-trash'></i></a> --}}
                             <a href="{{ route('ban.show', [$item->id]) }} " class="fa fa-edit"></a>
-
+                            
                             <form action="{{ route('ban.destroy', [$item->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')

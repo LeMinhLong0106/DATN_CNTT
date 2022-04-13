@@ -6,6 +6,8 @@ use App\Models\DanhMucMA;
 use App\Models\DonViTinh;
 use App\Models\MonAn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class MonAnController extends Controller
 {
@@ -14,13 +16,13 @@ class MonAnController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $data = MonAn::all();
-        $danhmuc = DanhMucMA::get();
-        $donvitinh = DonViTinh::get();
+
         // $date = date('Y-m-d');
-        return view('admin.monan.index', compact('data', 'danhmuc', 'donvitinh'));
+        return view('admin.monan.index', compact('data'));
         // dd($danhmuc);
     }
 
@@ -45,11 +47,45 @@ class MonAnController extends Controller
      */
     public function store(Request $request)
     {
-        $add = MonAn::create($request->all());
-        if ($add) {
-            return redirect()->route('monan.index')->with('success', 'Thêm mới thành công');
+        $add = new MonAn();
+        // $add->tenmonan = $request->user()->id;//lấy đc id của người dùng
+        $add->tenmonan = $request->tenmonan;
+        $add->gia = $request->gia;
+        $add->mota = $request->mota;
+        $add->tinhtrang = $request->tinhtrang;
+        $add->danhmuc = $request->danhmuc;
+        $add->donvitinh = $request->donvitinh;
+
+        if ($request['hinhanh']) {
+            $hinhanh = $request['hinhanh'];
+            $name = $hinhanh->getClientOriginalName();
+            Storage::disk('public')->put($name, File::get($hinhanh));
+            $add->hinhanh =  $name;
+        } else {
+            $add->hinhanh = 'default.jpg';
         }
-        return redirect()->back()->with('error', 'Thêm mới thất bại');
+        $add->save();
+        return redirect()->route('monan.index')->with('success', 'Thêm thành công');
+
+        // thêm data vào bảng product_image https://www.youtube.com/watch?v=3WX9glyvm1c&list=PL3V6a6RU5ogEAKIuGjfPEJ77FGmEAQXTT&index=32
+        // if($request->has('hinhanh')){
+        //     foreach($request->img_path as $imgp){
+        //         $dataa = ...
+        //         ProductImage::create([
+        //             'product_id'=> $product->id,
+        //         ])
+        //     }
+        // }
+
+        // foreach($request->categorys as $category){
+        //     //firstOrCreate là trả về 1 object hoặc tạo mới
+        //     $data = MonAn::firstOrCreate(['tenmonan' => $request->tenmonan, 'danhmuc' => $category]);
+        //     // tạo mới bảng ghi trong bảng MonAnTag
+        //     MonAnTag::create([
+        //         'monan_id' => $data->id,
+        //         'danhmuc_id' => $category
+        //     ]);
+        // }
     }
 
     /**
@@ -90,7 +126,17 @@ class MonAnController extends Controller
         $data->tenmonan = $request->tenmonan;
         $data->tinhtrang = $request->tinhtrang;
         $data->mota = $request->mota;
-        $data->hinhanh = $request->hinhanh;
+        // nếu thêm ảnh mới thì xóa ảnh cũ
+        if ($request['hinhanh']) {
+            unlink('images/' . $data->hinhanh);
+            $hinhanh = $request['hinhanh'];
+            $name = $hinhanh->getClientOriginalName();
+            Storage::disk('public')->put($name, File::get($hinhanh));
+            $data->hinhanh = $name;
+        } else {
+            $data->hinhanh = $data->hinhanh;
+        }
+
         $data->gia = $request->gia;
         $data->donvitinh = $request->donvitinh;
         $data->danhmuc = $request->danhmuc;

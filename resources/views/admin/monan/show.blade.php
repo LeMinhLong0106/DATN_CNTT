@@ -57,29 +57,24 @@
     <div class="checkform">
         <div class="content">
             <h3>CẬP NHÂT MÓN ĂN</h3>
-            <form action="{{ route('monan.update', [$data->id]) }}" method="post">
+            <form action="{{ route('monan.update', [$data->id]) }}" method="post" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="form-horizontal">
                     <hr />
-                    {{-- <div class="form-group1">
-                        <label for="id" class="control-label col-md-5"><b>Mã đơn vị: </b></label>
-                        <div class="col-md-7">
-                            <input type="text" class="form-control text-box single-line" value="{{ $data->id }}" id="id"
-                                name="id" readonly>
-                        </div>
-                    </div> --}}
                     <div class="form-group1">
                         <label for="tenmonan" class="control-label col-md-4"><b>Tên món ăn: </b></label>
                         <div class="col-md-8">
-                            <input type="text" value="{{ $data->tenmonan }}" class="form-control text-box single-line" id="tenmonan" name="tenmonan">
+                            <input type="text" value="{{ $data->tenmonan }}" class="form-control text-box single-line"
+                                id="tenmonan" name="tenmonan">
                         </div>
                     </div>
 
                     <div class="form-group1">
                         <label for="gia" class="control-label col-md-4"><b>Giá: </b></label>
                         <div class="col-md-8">
-                            <input type="text" value="{{ $data->gia }}" class="form-control text-box single-line" id="gia" name="gia">
+                            <input type="text" value="{{ $data->gia }}" class="form-control text-box single-line"
+                                id="gia" name="gia">
                         </div>
                     </div>
 
@@ -94,22 +89,23 @@
                     <div class="form-group1">
                         <label for="hinhanh" class="control-label col-md-4"><b>Ảnh món ăn: </b></label>
                         <div class="col-md-8">
-                            <input type="text" value="{{ $data->hinhanh }}" id="hinhanh" name="hinhanh">
+                            <input type="file" value="{{ $data->hinhanh }}" id="hinhanh" name="hinhanh">
                         </div>
                     </div>
 
                     <div class="form-group1">
                         <label for="tinhtrang" class="control-label col-md-4"><b>Tình trạng: </b></label>
                         <div class="col-md-8">
-                            <input type="checkbox" name="tinhtrang" value="{{$data->tinhtrang}}" checked> Còn bán
-                                                        
+                            <input type="radio" name="tinhtrang" value="1" {{ $data->tinhtrang == 1 ? 'checked' : '' }}>
+                            Còn
+                            <input type="radio" name="tinhtrang" value="0" {{ $data->tinhtrang == 0 ? 'checked' : '' }}>
+                            Hết
                         </div>
                     </div>
-
                     <div class="form-group1">
                         <label for="donvitinh" class="control-label col-md-4"><b>Đơn vị tính: </b></label>
                         <div class="col-md-8">
-                            <select name="donvitinh" class="form-control" >
+                            <select name="donvitinh" class="form-control">
                                 @foreach ($donvitinhs as $dvt)
                                     <option {{ $dvt->id == $data->donvitinh ? 'selected' : '' }}
                                         value="{{ $dvt->id }}">{{ $dvt->tendvt }}</option>
@@ -121,7 +117,7 @@
                     <div class="form-group1">
                         <label for="danhmuc" class="control-label col-md-4"><b>Loại món ăn: </b></label>
                         <div class="col-md-8">
-                            <select name="danhmuc" class="form-control" >
+                            <select name="danhmuc" class="form-control">
                                 @foreach ($danhmucs as $key => $dm)
                                     <option {{ $dm->id == $data->danhmuc ? 'selected' : '' }}
                                         value="{{ $dm->id }}">{{ $dm->tendm }}</option>

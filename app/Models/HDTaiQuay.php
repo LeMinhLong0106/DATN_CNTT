@@ -8,6 +8,6 @@ class HDTaiQuay extends Model
 {
     protected $table = 'hdtaiquay';
     protected $fillable = [
-        'MaHD', 'TinhTrang', 'NgayLap', 'MaNV', 'MaBan'
+        'tinhtrang', 'tongtien', 'nhanvien_id', 'ban_id', 'created_at'
     ];
 }

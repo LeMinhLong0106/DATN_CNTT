@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\NhanVien;
+use App\Models\VaiTro;
 use Illuminate\Http\Request;
 
 class NhanVienController extends Controller
@@ -14,7 +15,8 @@ class NhanVienController extends Controller
      */
     public function index()
     {
-        //
+        $data = NhanVien::all();
+        return view('admin.nhanvien.index', compact('data'));
     }
 
     /**
@@ -24,7 +26,8 @@ class NhanVienController extends Controller
      */
     public function create()
     {
-        //
+        $vaitros = VaiTro::all();
+        return view('admin.nhanvien.create', compact('vaitros'));
     }
 
     /**
@@ -35,7 +38,16 @@ class NhanVienController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nhanviens = NhanVien::create(
+            [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+            ]
+        );
+        // lưu vào bản nhân viên_vai trò
+        $nhanviens->vaitros()->attach($request->vaitro_id);
+        return redirect()->route('nhanvien.index');
     }
 
     /**
@@ -44,9 +56,12 @@ class NhanVienController extends Controller
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Http\Response
      */
-    public function show(NhanVien $nhanVien)
+    public function show($nhanVien)
     {
-        //
+        $data = NhanVien::find($nhanVien);
+        $vaitros = VaiTro::all();
+        $nhanvien_vaitro = $data->vaitros;
+        return view('admin.nhanvien.show', compact('nhanVien', 'data', 'vaitros', 'nhanvien_vaitro'));
     }
 
     /**
@@ -67,9 +82,20 @@ class NhanVienController extends Controller
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, NhanVien $nhanVien)
+    public function update(Request $request, $nhanVien)
     {
-        //
+        $data = NhanVien::find($nhanVien);
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->password = bcrypt($request->password);
+        $data->save();
+        // // xóa tất cả các vai trò cũ
+        // $data->vaitros()->detach();
+        // // thêm vai trò mới
+        // $data->vaitros()->attach($request->vaitro_id);
+        $data->vaitros()->sync($request->vaitro_id);// xóa tất cả các vai trò cũ, thêm vai trò mới
+
+        return redirect()->route('nhanvien.index');
     }
 
     /**
@@ -78,8 +104,10 @@ class NhanVienController extends Controller
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Http\Response
      */
-    public function destroy(NhanVien $nhanVien)
+    public function destroy($nhanVien)
     {
-        //
+        $data = NhanVien::find($nhanVien);
+        $data->delete();
+        return redirect()->route('nhanvien.index');
     }
 }

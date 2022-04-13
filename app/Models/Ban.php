@@ -9,6 +9,6 @@ class Ban extends Model
     public $timestamps = false;
     protected $table = 'bans';
     protected $fillable = [
-        'Ghe', 'TinhTrang',
+        'ghe', 'tinhtrang', 'created_at', 'updated_at'
     ];
 }

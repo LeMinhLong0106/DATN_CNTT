@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ban;
+use App\Models\DanhMucMA;
 use App\Models\HDTaiQuay;
+use App\Models\MonAn;
 use Illuminate\Http\Request;
 
-class HDTaiQuayController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +18,8 @@ class HDTaiQuayController extends Controller
     public function index()
     {
         $data = HDTaiQuay::all();
-        return view('admin.hdtaiquay.index', compact('data'));
+        $bans = Ban::all();
+        return view('admin.order.index', compact('data', 'bans'));
     }
 
     /**
@@ -25,7 +29,12 @@ class HDTaiQuayController extends Controller
      */
     public function create()
     {
-        //
+        $data = HDTaiQuay::all();
+        $danhmucs = DanhMucMA::all();
+        $monans = MonAn::all();
+        $bans = Ban::get('id');
+        // dd($bans);
+        return view('admin.order.create', compact('data', 'danhmucs', 'monans', 'bans'));
     }
 
     /**
@@ -36,7 +45,19 @@ class HDTaiQuayController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $data = new HDTaiQuay();
+        // $data->monan = $request->monan;
+        // $data->soluong = $request->soluong;
+        // $data->ghichu = $request->ghichu;
+        // $data->save();
+        // return redirect()->route('admin.order.index');
+        $add = HDTaiQuay::create($request->all());
+        // $add = CTHDTaiQuay::create($request->all());
+
+        if ($add) {
+            return redirect()->route('order.index')->with('success', 'Thêm mới thành công');
+        }
+        return redirect()->back()->with('error', 'Thêm mới thất bại');
     }
 
     /**
@@ -47,7 +68,7 @@ class HDTaiQuayController extends Controller
      */
     public function show(HDTaiQuay $hDTaiQuay)
     {
-        //
+        return view('admin.order.show');
     }
 
     /**

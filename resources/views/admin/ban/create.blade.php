@@ -69,16 +69,17 @@
                     </div> --}}
 
                     <div class="form-group1">
-                        <label for="Ghe" class="control-label col-md-5"><b>Số ghế: </b></label>
+                        <label for="ghe" class="control-label col-md-5"><b>Số ghế: </b></label>
                         <div class="col-md-7">
-                            <input type="text" class="form-control text-box single-line" id="Ghe" name="Ghe">
+                            <input type="text" class="form-control text-box single-line" id="ghe" name="ghe">
                         </div>
                     </div>
 
                     <div class="form-group1">
-                        <label for="TinhTrang" class="control-label col-md-5"><b>Tình trạng: </b></label>
+                        <label for="tinhtrang" class="control-label col-md-5"><b>Tình trạng: </b></label>
                         <div class="col-md-7">
-                            <input type="checkbox" name="TinhTrang" value="1"> Trống
+                            <input type="radio" name="tinhtrang" value="1"> Có khách
+                            <input type="radio" name="tinhtrang" value="0"> Trống
                         </div>
                     </div>
 

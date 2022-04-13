@@ -29,6 +29,11 @@
 
     {{-- <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" type="text/css"> --}}
     <link href="{{ asset('datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
+
+
+
 </head>
 
 <body>
@@ -66,7 +71,7 @@
                     </div>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('ban.index')}}">
+                        <a class="nav-link" href="{{ route('ban.index') }}">
                             <i class="fas fa-fw fa-table"></i>
                             <span>Bàn</span></a>
                     </li>
@@ -80,9 +85,9 @@
                         <div id="collapse_1" class="collapse" aria-labelledby="headingTwo"
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <a class="collapse-item" href="{{route('danhmucmonan.index')}}">Danh mục</a>
-                                <a class="collapse-item" href="{{route('donvitinh.index')}}">Đơn vị</a>
-                                <a class="collapse-item" href="{{route('monan.index')}}">Món ăn</a>
+                                <a class="collapse-item" href="{{ route('danhmucmonan.index') }}">Danh mục</a>
+                                <a class="collapse-item" href="{{ route('donvitinh.index') }}">Đơn vị</a>
+                                <a class="collapse-item" href="{{ route('monan.index') }}">Món ăn</a>
                             </div>
                         </div>
                     </li>
@@ -96,7 +101,7 @@
                         <div id="collapse_2" class="collapse" aria-labelledby="headingTwo"
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <a class="collapse-item" href="#">Tại chỗ</a>
+                                <a class="collapse-item" href="{{ route('order.index') }}">Tại chỗ</a>
                                 <a class="collapse-item" href="#">Online</a>
                             </div>
                         </div>
@@ -111,7 +116,7 @@
                         <div id="collapse_3" class="collapse" aria-labelledby="headingTwo"
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <a class="collapse-item" href="#">Tại chỗ</a>
+                                <a class="collapse-item" href="{{ route('hdtaiquay.index') }}">Tại chỗ</a>
                                 <a class="collapse-item" href="#">Online</a>
                             </div>
                         </div>
@@ -131,7 +136,7 @@
                             <span>Khách hàng</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ route('nhanvien.index') }}">
                             <i class="fas fa-user"></i>
                             <span>Thông tin nhân viên</span></a>
                     </li>
@@ -351,6 +356,11 @@
 
     <!-- Page level custom scripts -->
     <script src="{{ asset('js/datatables-demo.js') }}"></script>
+
+    <script src="{{ asset('js/script.js') }}"></script>
+    {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+
+    @yield('js')
 </body>
 
 </html>

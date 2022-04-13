@@ -27,7 +27,7 @@
                 @foreach ($data as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td><img src="{{ asset('storage/'.$item->hinhanh) }}" alt="" width="100px"></td>
+                        <td><img src="{{ asset('images/' . $item->hinhanh) }}" alt="" width="100px"></td>
                         {{-- <td>{{ $item->HinhAnh }}</td> --}}
                         <td>{{ $item->tenmonan }}</td>
                         {{-- <td>{{ $item->MoTa }}</td> --}}
@@ -40,24 +40,29 @@
                             @endif
                         </td>
                         {{-- <td>{{ $item->created_at }}</td> --}}
-                        <td>{{date($item->created_at)}}</td>
+                        <td>{{ date($item->created_at) }}</td>
 
-                        @foreach ($donvitinh as $dm)
+                        {{-- @foreach ($donvitinh as $dm)
                             @if ($item->donvitinh == $dm->id)
                                 <td>{{ $dm->tendvt }}</td>
                             @endif
-                        @endforeach
+                        @endforeach --}}
 
-                        @foreach ($danhmuc as $dm)
+                        {{-- @foreach ($danhmuc as $dm)
                             @if ($item->danhmuc == $dm->id)
                                 <td>{{ $dm->tendm }}</td>
                             @endif
-                        @endforeach
+                        @endforeach --}}
+
+                        {{-- khi sai hoặc ko tồn tại tendvt thì hiện thị rỗng --}}
+                        <td>{{ optional($item->donvitinhs)->tendvt }}</td>
+                        <td>{{ optional($item->danhmucss)->tendm }}</td>
 
                         <td>
                             {{-- <a href=""><i class='fa fa-edit'></i></a>&nbsp;|&nbsp;
                             <a href=""><i class='fa fa-trash'></i></a> --}}
                             <a href="{{ route('monan.show', [$item->id]) }} " class="fa fa-edit"></a>
+                            {{-- <a href="" class="fa fa-trash action_delete"></a> --}}
 
                             <form action="{{ route('monan.destroy', [$item->id]) }}" method="POST">
                                 @csrf

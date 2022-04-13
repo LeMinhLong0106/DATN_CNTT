@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HDTaiQuay;
+use App\Models\CTHDOnline;
 use Illuminate\Http\Request;
 
-class HDTaiQuayController extends Controller
+class CTHDOnlineController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class HDTaiQuayController extends Controller
      */
     public function index()
     {
-        $data = HDTaiQuay::all();
-        return view('admin.hdtaiquay.index', compact('data'));
+        //
     }
 
     /**
@@ -42,10 +41,10 @@ class HDTaiQuayController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\HDTaiQuay  $hDTaiQuay
+     * @param  \App\Models\CTHDOnline  $cTHDOnline
      * @return \Illuminate\Http\Response
      */
-    public function show(HDTaiQuay $hDTaiQuay)
+    public function show(CTHDOnline $cTHDOnline)
     {
         //
     }
@@ -53,10 +52,10 @@ class HDTaiQuayController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\HDTaiQuay  $hDTaiQuay
+     * @param  \App\Models\CTHDOnline  $cTHDOnline
      * @return \Illuminate\Http\Response
      */
-    public function edit(HDTaiQuay $hDTaiQuay)
+    public function edit(CTHDOnline $cTHDOnline)
     {
         //
     }
@@ -65,10 +64,10 @@ class HDTaiQuayController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\HDTaiQuay  $hDTaiQuay
+     * @param  \App\Models\CTHDOnline  $cTHDOnline
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, HDTaiQuay $hDTaiQuay)
+    public function update(Request $request, CTHDOnline $cTHDOnline)
     {
         //
     }
@@ -76,10 +75,10 @@ class HDTaiQuayController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\HDTaiQuay  $hDTaiQuay
+     * @param  \App\Models\CTHDOnline  $cTHDOnline
      * @return \Illuminate\Http\Response
      */
-    public function destroy(HDTaiQuay $hDTaiQuay)
+    public function destroy(CTHDOnline $cTHDOnline)
     {
         //
     }
