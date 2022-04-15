@@ -10,4 +10,8 @@ class Quyen extends Model
     protected $fillable = [
         'tenquyen', 'mota'
     ];
+
+    public function quyenCon(){
+        return $this->hasMany(Quyen::class, 'parent_id');
+    }
 }

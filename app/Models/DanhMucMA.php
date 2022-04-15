@@ -11,4 +11,9 @@ class DanhMucMA extends Model
     protected $fillable = [
         'tendm',
     ];
+
+    public function monans()
+    {
+        return $this->hasMany(MonAn::class, 'danhmuc');
+    }
 }

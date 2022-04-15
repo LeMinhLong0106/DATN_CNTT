@@ -24,7 +24,9 @@ Route::get('/', 'HomeController@index');
 
 Route::get('/majestic', 'GiaoDienController@majestic')->name('majestic');
 Route::get('/menuu', 'GiaoDienController@menu')->name('menu');
+Route::get('/detail/{id}', 'GiaoDienController@detail')->name('detail');
 Route::get('/about', 'GiaoDienController@about')->name('about');
+Route::get('/search', 'GiaoDienController@search')->name('search');
 
 // đăng nhập thì mới vào những trang này được
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
@@ -38,6 +40,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('monan', 'MonAnController');
     Route::resource('order', 'OrderController');
     Route::resource('nhanvien', 'NhanVienController');
+    Route::resource('vaitro', 'VaiTroController');
     // Route::resource('nhomnv', 'NhomNVController');
     // Route::resource('quyen', 'QuyenController');
 });

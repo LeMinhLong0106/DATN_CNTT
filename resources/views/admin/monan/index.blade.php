@@ -39,8 +39,7 @@
                                 <span class="badge badge-danger">Hết bán</span>
                             @endif
                         </td>
-                        {{-- <td>{{ $item->created_at }}</td> --}}
-                        <td>{{ date($item->created_at) }}</td>
+                        <td>{{ date('d/m/Y', strtotime($item->created_at)) }}</td>
 
                         {{-- @foreach ($donvitinh as $dm)
                             @if ($item->donvitinh == $dm->id)

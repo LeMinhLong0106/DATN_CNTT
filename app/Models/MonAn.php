@@ -11,13 +11,6 @@ class MonAn extends Model
         'tenmonan', 'tinhtrang', 'mota', 'hinhanh', 'gia', 'donvitinh', 'danhmuc', 'created_at'
     ];
 
-    // relatisonship
-    // public function category()
-    // {
-    //     return $this->hasMany('thamso1', 'thamso2');
-    //     // thamso 1 là class, tham số 2 là khóa ngoại
-    // }
-
     // 1 danh mục có nhìu món ăn ,1 món nằm trong 1 danh mục
     public function danhmucss()
     {

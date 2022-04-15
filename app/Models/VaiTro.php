@@ -10,4 +10,8 @@ class VaiTro extends Model
     protected $fillable = [
         'tenvaitro', 'mota',
     ];
+
+    public function quyens(){
+        return $this->belongsToMany(Quyen::class, 'vaitro_quyen', 'vaitro_id', 'quyen_id');
+    }
 }
