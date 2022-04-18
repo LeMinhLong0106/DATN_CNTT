@@ -34,8 +34,11 @@
                                 </div>
                                 <div class="content">
                                     <h3>{{ $ma->tenmonan }}</h3>
-                                    <div class="price">{{ $ma->gia }}/{{$ma->donvitinhs->tendvt}}</div>
+                                    <div class="price">{{ $ma->gia }}/{{ $ma->donvitinhs->tendvt }}</div>
                                     <a href="{{ route('detail', [$item->id]) }}" class="btn">Chi tiết</a>
+
+                                    <a href="#" data-url="{{ route('addToCart', [$ma->id]) }}"
+                                        class="btn btn-primary add_to_cart">Them gio</a>
                                 </div>
                             </div>
                         @endif
@@ -45,4 +48,30 @@
         </section>
     @endforeach
     </div>
+@endsection
+@section('js')
+    <script>
+        function addToCart(e) {
+            e.preventDefault();
+            let urlCard = $(this).data('url');
+            // alert(urlCard);
+            $.ajax({
+                url: urlCard,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    if (data.success) {
+                        alert('Thêm giỏ hàng thành công');
+                    } else {
+                        alert('Thêm giỏ hàng thất bại');
+                    }
+                },
+                error: function(data) {}
+            });
+        };
+
+        $(function() {
+            $('.add_to_cart').on('click', addToCart);
+        });
+    </script>
 @endsection

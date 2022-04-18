@@ -6,7 +6,7 @@
         <div class="content">
             <span>Chào mừng bạn đến Majestic</span>
             <h3>với không gian và những hương vị đặc trưng sẽ khiến bạn không quên được khi đến nhà hàng 😋</h3>
-            
+
             <a href="{{ route('menu') }}" class="btn">Đặt ngay</a>
         </div>
 
@@ -20,7 +20,6 @@
     <!-- home section ends  -->
 
     <!-- search-form  -->
-
 
     <!-- about section starts  -->
 
@@ -111,7 +110,9 @@
                     <div class="content">
                         <h3>{{ $item->tenmonan }}</h3>
                         <div class="price">{{ $item->gia }}/{{ $item->donvitinhs->tendvt }}</div>
-                        <a href="{{ route('detail', [$item->id]) }}" class="btn">Chi tiết</a>
+                        {{-- <a href="{{ route('detail', [$item->id]) }}" class="btn">Chi tiết</a> --}}
+                        <a href="{{ asset('cart/add/' . $item->id) }}" class="btn btn-primary">Them</a>
+
                     </div>
                 </div>
             @endforeach

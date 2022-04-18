@@ -20,10 +20,7 @@ class MonAnController extends Controller
     public function index()
     {
         $data = MonAn::all();
-
-        // $date = date('Y-m-d');
         return view('admin.monan.index', compact('data'));
-        // dd($danhmuc);
     }
 
     /**

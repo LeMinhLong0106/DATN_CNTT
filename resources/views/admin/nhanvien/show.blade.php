@@ -68,7 +68,7 @@
     </style>
     <div class="checkform">
         <div class="content">
-            <h3>THÊM MỚI NHÂM VIÊN</h3>
+            <h3>CẬP NHẬT NHÂN VIÊN</h3>
             <form action="{{route('nhanvien.update', [$data->id]) }}" method="post" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf

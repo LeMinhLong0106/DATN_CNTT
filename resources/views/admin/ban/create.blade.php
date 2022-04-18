@@ -90,7 +90,6 @@
 
                         <div class="col-md-offset-2 col-md-6 comback_div">
                             <a class="comeback" href="{{ route('ban.index') }}">Quay lại</a>
-
                         </div>
                     </div>
                 </div>

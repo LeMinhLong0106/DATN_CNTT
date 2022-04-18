@@ -1,23 +1,39 @@
-@extends('layouts.main')
+{{-- @extends('layouts.main')
 
-@section('main')
-    <main class="l-main bd-grid">
-        <div class="home">
-            <!-- ===== SNEAKER ===== -->
-            <div class="sneaker">
-                <div>
-                    <img src="/images/menu-1.png" alt="" class="sneaker__img shows" color="#A29596">
-                </div>
-            </div>
+@section('js')
+    <script>
+        function addToCart(e) {
+            e.preventDefault();
+            let urlCard = $(this).data('url');
+            $.ajax({
+                url: urlCard,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {},
+                error: function(data) {}
+            });
 
-            <!-- ===== IFORMACION ===== -->
-            <div class="info">
-                <!-- ===== DATA ===== -->
-                <div class="data">
-                    <h1 class="data__title">Air Max Motion 2</h1>
-                    <p class="data__description">Combinan la malla transpirable sin costuras para <br> un estilo tradicional.</p>
-                </div>
-            </div>
-        </div>
-    </main>
+        }
+
+        $(function() {
+            $('.add_to_cart').on('click', addToCart);
+        });
+    </script>
 @endsection
+@section('main')
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{ asset('images/' . $data->hinhanh) }}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Tên món: {{ $data->tenmonan }}</h5>
+            <p class="card-text">Mô tả: {{ $data->mota }}</p>
+            <p class="card-text">Mô tả: {{ $data->gia }}</p>
+            @if ($data->tinhtrang == 1)
+                <p class="data__description">Tình trạng: Còn hàng</p>
+            @else
+                <p class="data__description">Tình trạng: Hết hàng</p>
+            @endif
+            <a href="#" data-url="{{ route('addToCart', [$data->id]) }}" class="btn btn-primary add_to_cart">Go
+                somewhere</a>
+        </div>
+    </div>
+@endsection --}}

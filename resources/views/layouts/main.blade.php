@@ -66,6 +66,8 @@
                 <a href="{{ route('majestic') }}">Trang chủ</a>
                 <a href="{{ route('about') }}">Thông tin</a>
                 <a href="{{ route('menu') }}">Thực đơn</a>
+                <a href="{{ route('showCart') }}">GHSS</a>
+                <a href="{{ route('cart.show') }}">GH</a>
             </nav>
 
             <div class="icons">
@@ -106,7 +108,7 @@
 
         <!-- shopping-cart section  -->
 
-        <section class="shopping-cart-container">
+        {{-- <section class="shopping-cart-container">
 
             <div class="products-container">
 
@@ -213,7 +215,7 @@
 
             </div>
 
-        </section>
+        </section> --}}
 
         <!-- login-form  -->
 
@@ -306,15 +308,20 @@
         </section>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> --}}
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" ></script>
+    
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
     <!-- link sj  -->
     <script src="{{ asset('js/script.js') }}"></script>
-
+    
+    @yield('js')
 </body>
 
 </html>

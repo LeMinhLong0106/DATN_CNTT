@@ -44,7 +44,7 @@ class VaiTroController extends Controller
                 'mota' => $request->mota,
             ]
         );
-        // lưu vào bản quyền
+        // lưu vào bản vaittro_quyen
         $vaitro->quyens()->attach($request->quyen_id);
         return redirect()->route('vaitro.index');
     }

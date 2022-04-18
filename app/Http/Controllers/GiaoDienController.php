@@ -14,7 +14,7 @@ class GiaoDienController extends Controller
         $monan_db = MonAn::where('danhmuc', '=', 6)->get();
         return view('majestic', compact('monan_db', 'monan_moi'));
     }
-    
+
     public function menu()
     {
         $data = DanhMucMA::all();
@@ -40,8 +40,44 @@ class GiaoDienController extends Controller
     {
         $keyword = $request->timkiem;
         $data = $keyword;
-        $monans = MonAn::where('tenmonan', 'like', '%'.$keyword.'%')->get();
+        $monans = MonAn::where('tenmonan', 'like', '%' . $keyword . '%')->get();
         return view('search', compact('monans', 'data'));
         // dd($monans);
+    }
+
+    public function addToCart($id)
+    {
+        // session()->forget('cart');
+        // session()->flush('cart');
+
+        $monans = MonAn::find($id);
+        $cart = session()->get('cart');
+
+        if (isset($cart[$id])) {
+            // $cart[$id]['qty'] = $cart[$id]['qty'] + 1;
+            $cart[$id]['qty'] = $cart[$id]['qty'] + 1;
+        } else {
+            $cart[$id] = [
+                'tenmonan' => $monans->tenmonan,
+                'gia' => $monans->gia,
+                'qty' => 1,
+                'ghichu' => null,
+                'hinhanh' => $monans->hinhanh,
+            ];
+        }
+        session()->put('cart', $cart);
+        return response()->json([
+            'code' => 200,
+            'success' => 'Thêm thành công'
+        ], 200);
+        // dd(session()->get('cart'));
+    }
+
+
+    public function showCart()
+    {
+        $cart = session()->get('cart');
+        // dd($cart);
+        return view('cart', compact('cart'));
     }
 }

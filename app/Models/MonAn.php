@@ -11,7 +11,6 @@ class MonAn extends Model
         'tenmonan', 'tinhtrang', 'mota', 'hinhanh', 'gia', 'donvitinh', 'danhmuc', 'created_at'
     ];
 
-    // 1 danh mục có nhìu món ăn ,1 món nằm trong 1 danh mục
     public function danhmucss()
     {
         return $this->belongsTo(DanhMucMA::class, 'danhmuc');// tham số 1 là class, tham số 2 là khóa ngoại của bảng món ăn
@@ -20,5 +19,15 @@ class MonAn extends Model
     public function donvitinhs()
     {
         return $this->belongsTo(DonViTinh::class, 'donvitinh');
+    }
+
+    public function hdtaiquays()
+    {
+        return $this->belongsToMany(HDTaiQuay::class, 'cthdtaiquay', 'monan_id', 'hdtaiquay_id');
+    }
+
+    public function hdonlines()
+    {
+        return $this->belongsToMany(HDOnline::class, 'cthdonline', 'monan_id', 'hdonline_id');
     }
 }

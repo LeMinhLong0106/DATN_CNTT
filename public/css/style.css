@@ -205,16 +205,16 @@ section {
 }
 
 .shopping-cart-container {
-    position: fixed;
+    /* position: fixed;
     top: 8.5rem;
     left: 0;
     right: 0;
     z-index: 1000;
-    height: calc(100vh - 8.5rem);
+    height: calc(100vh - 8.5rem); */
     background: #fff;
     overflow-y: scroll;
     padding-bottom: 8rem;
-    display: none;
+    /* display: none; */
 }
 
 .shopping-cart-container.active {
