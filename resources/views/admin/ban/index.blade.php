@@ -25,9 +25,9 @@
                         {{-- <td>{{ $item->tinhtrang }}</td> --}}
                         <td>
                             @if ($item->tinhtrang == 1)
-                                <span class="badge badge-success">Trống</span>
+                                <span class="badge badge-success">Enable</span>
                             @else
-                                <span class="badge badge-danger">Đang sử dụng</span>
+                                <span class="badge badge-danger">Disable</span>
                             @endif
                         <td>
                             <a href="{{ route('ban.show', [$item->id]) }} " class="fa fa-edit"></a>

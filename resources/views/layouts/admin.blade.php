@@ -118,7 +118,7 @@
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <a class="collapse-item" href="{{ route('hdtaiquay.index') }}">Tại chỗ</a>
-                                <a class="collapse-item" href="#">Online</a>
+                                <a class="collapse-item" href="{{ route('hdonline.index') }}">Online</a>
                             </div>
                         </div>
                     </li>

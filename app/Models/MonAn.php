@@ -26,7 +26,7 @@ class MonAn extends Model
         return $this->belongsToMany(HDTaiQuay::class, 'cthdtaiquay', 'monan_id', 'hdtaiquay_id');
     }
 
-    public function hdonlines()
+    public function cthdonline()
     {
         return $this->belongsToMany(HDOnline::class, 'cthdonline', 'monan_id', 'hdonline_id');
     }

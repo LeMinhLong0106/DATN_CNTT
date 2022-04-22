@@ -74,9 +74,35 @@
                 <div id="menu-btn" class="fas fa-bars"></div>
                 <div id="search-btn" class="fas fa-search"></div>
                 <div id="cart-btn" class="fas fa-shopping-cart"></div>
-                <div id="login-btn" class="fas fa-user"></div>
             </div>
+            {{-- @php
+                $khachhang_id = Session::get('id');
+                if ($khachhang_id != null) {
+                    // đã đăng nhập
+                    echo '<a href="">Đăng xuất</a>';
+                } else {
+                    echo '<a href="">Login </a>';
+                }
+            @endphp --}}
 
+            <ul class="nav navbar-nav navbar-right">
+                @if (Session::get('id') != null)
+                    <li>
+                        <a href="">Hé lô
+                            {{ Session::get('tenkh') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('logout') }}">Đăng xuất</a>
+                    </li>
+                @else
+                    <li>
+                        <a href="{{ route('login_checkout') }}">Login </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('register_checkout') }}">Register </a>
+                    </li>
+                @endif
+            </ul>
             {{-- <ul class="nav navbar-nav navbar-right">
                 @if (Auth::guard('cus')->check())
                     <li>
@@ -219,7 +245,7 @@
 
         <!-- login-form  -->
 
-        <div class="login-form-container">
+        {{-- <div class="login-form-container">
 
             <form action="">
                 <h3>login form</h3>
@@ -234,7 +260,7 @@
                 <p>don't have an account? <a href="#">create one</a></p>
             </form>
 
-        </div>
+        </div> --}}
 
         <main class="py-4">
             @yield('main')
@@ -311,16 +337,16 @@
     {{-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> --}}
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" ></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" ></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
+
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
     <!-- link sj  -->
     <script src="{{ asset('js/script.js') }}"></script>
-    
+
     @yield('js')
 </body>
 

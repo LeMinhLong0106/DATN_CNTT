@@ -16,13 +16,10 @@
         </div>
 
     </section>
-
     <!-- home section ends  -->
 
-    <!-- search-form  -->
 
     <!-- about section starts  -->
-
     <section class="about" id="about">
 
         <div class="image">
@@ -56,11 +53,9 @@
         </div>
 
     </section>
-
     <!-- about section ends -->
 
     <!-- food section starts  -->
-
     <section class="food" id="food">
 
         <div class="heading">
@@ -112,7 +107,6 @@
                         <div class="price">{{ $item->gia }}/{{ $item->donvitinhs->tendvt }}</div>
                         {{-- <a href="{{ route('detail', [$item->id]) }}" class="btn">Chi tiết</a> --}}
                         <a href="{{ asset('cart/add/' . $item->id) }}" class="btn btn-primary">Them</a>
-
                     </div>
                 </div>
             @endforeach

@@ -45,8 +45,9 @@ class NhanVienController extends Controller
                 'password' => bcrypt($request->password),
             ]
         );
-        // lưu vào bản nhân viên_vai trò
-        $nhanviens->vaitros()->attach($request->vaitro_id);
+        // lưu vào bản nhanvien_vaitro
+        $nhanviens->vaitros()->attach($request->vaitro_id);// attach: lưu vào bản nhanvien_vaitro
+
         return redirect()->route('nhanvien.index');
     }
 

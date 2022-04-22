@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CTHDOnline;
 use App\Models\HDOnline;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class HDOnlineController extends Controller
      */
     public function index()
     {
-        //
+        $data = HDOnline::all();
+
+        return view('admin.hdonline.index', compact('data'));
     }
 
     /**
@@ -44,9 +47,12 @@ class HDOnlineController extends Controller
      * @param  \App\Models\HDOnline  $hDOnline
      * @return \Illuminate\Http\Response
      */
-    public function show(HDOnline $hDOnline)
+    public function show($hDOnline)
     {
-        //
+        $data = HDOnline::find($hDOnline);
+        $cthd = CTHDOnline::where('hdonline_id', $hDOnline)->get();
+        // dd($cthd);
+        return view('admin.hdonline.show', compact('data', 'cthd'));
     }
 
     /**
@@ -78,8 +84,10 @@ class HDOnlineController extends Controller
      * @param  \App\Models\HDOnline  $hDOnline
      * @return \Illuminate\Http\Response
      */
-    public function destroy(HDOnline $hDOnline)
+    public function destroy($hDOnline)
     {
-        //
+        $data = HDOnline::find($hDOnline);
+        $data->delete();
+        return redirect()->back();
     }
 }

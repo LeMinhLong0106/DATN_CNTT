@@ -36,7 +36,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('danhmucmonan', 'DanhMucMAController');
     Route::resource('donvitinh', 'DonViTinhController');
     // Route::resource('dsquyen', 'DSQuyenController');
-    // Route::resource('hdonline', 'HDOnlineController');
+    Route::resource('hdonline', 'HDOnlineController');
     Route::resource('hdtaiquay', 'HDTaiQuayController');
     // Route::resource('khachhang', 'KhachHangController');
     Route::resource('monan', 'MonAnController');
@@ -48,8 +48,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 });
 
 Route::group(['prefix' => 'cart'], function () {
+    Route::post('add_in_detail', 'GioHangController@getAddInDetail')->name('add_in_detail');
+    
     Route::get('add/{id}', 'GioHangController@getAddCart');
     Route::get('show', 'GioHangController@showCart')->name('cart.show');
     Route::get('delete/{id}', 'GioHangController@getDeleteCart');
     Route::get('update', 'GioHangController@getUpdateCart');
+
+    Route::get('login_checkout', 'GioHangController@loginCheck')->name('login_checkout');
+    Route::get('register_checkout', 'GioHangController@registerCheck')->name('register_checkout');
+    Route::post('add_khachhang', 'GioHangController@addKH')->name('add_khachhang');
+    Route::post('login_khachhang', 'GioHangController@loginKhach')->name('login_khachhang');
+    Route::get('logout', 'GioHangController@logOut')->name('logout');
+
+    Route::post('checkout', 'GioHangController@addOrder')->name('checkout');
 });
+

@@ -73,11 +73,35 @@ class GiaoDienController extends Controller
         // dd(session()->get('cart'));
     }
 
-
     public function showCart()
     {
         $cart = session()->get('cart');
         // dd($cart);
         return view('cart', compact('cart'));
     }
+
+    // public function deleteCart($id)
+    // {
+    //     $cart = session()->get('cart');
+    //     unset($cart[$id]);
+    //     session()->put('cart', $cart);
+    //     return response()->json([
+    //         'code' => 200,
+    //         'success' => 'Xóa thành công'
+    //     ], 200);
+    // }
+
+    // public function updateCart(Request $request)
+    // {
+    //     $cart = session()->get('cart');
+    //     $cart[$request->id]['qty'] = $request->qty;
+    //     session()->put('cart', $cart);
+    //     return response()->json([
+    //         'code' => 200,
+    //         'success' => 'Cập nhật thành công'
+    //     ], 200);
+    // }
+
+
+
 }

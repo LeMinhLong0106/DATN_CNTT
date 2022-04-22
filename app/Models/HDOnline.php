@@ -21,9 +21,14 @@ class HDOnline extends Model
         return $this->belongsTo(KhachHang::class, 'khachhang_id');
     }
 
+    // public function cthdonline()
+    // {
+    //     return $this->hasMany(CTHDOnline::class, 'hdonline_id');
+    // }
+
     public function cthdonline()
     {
-        return $this->hasMany(CTHDOnline::class, 'hdonline_id');
+        return $this->belongsToMany(MonAn::class, 'cthdonline', 'hdonline_id', 'monan_id');
     }
 
     public function tongtien()

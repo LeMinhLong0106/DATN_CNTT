@@ -8,16 +8,17 @@ class CTHDOnline extends Model
 {
     protected $table = 'cthdonline';
     protected $fillable = [
-        'hdonline_id', 'monan_id', 'soluong', 'thanhtien'
+        'hdonline_id', 'monan_id', 'soluong', 'giaban'
     ];
 
     public function hdonline()
     {
-        return $this->belongsTo(HDOnline::class, 'hdonline_id');
+        return $this->belongsTo('App\Models\HDOnline', 'hdonline_id', 'id');
     }
 
-    public function monan()
+    public function monans()
     {
-        return $this->belongsTo(MonAn::class, 'monan_id');
+        return $this->belongsTo('App\Models\MonAn', 'monan_id', 'id');
     }
+
 }

@@ -17,6 +17,7 @@
     </script>
 @endsection
 @section('main')
+
     @if ($count >= 1)
         <section class="shopping-cart-container">
             <div class="products-container">
@@ -31,10 +32,10 @@
                                 <h3>{{ $item['name'] }}</h3>
                                 <span> Số lượng: </span>
                                 <input type="number" name="quantity" value="{{ $item['quantity'] }}" id="quantity" min="1"
-                                onchange="updateCart(this.value,'{{ $item['id'] }}')">
+                                    onchange="updateCart(this.value,'{{ $item['id'] }}')">
                                 <br>
                                 <span> Ghi chú: </span>
-                                <input name="note" id="note" value="{{ $item['attributes']['note'] }}" >
+                                <input name="note" id="note" value="{{ $item['attributes']['note'] }}">
                                 <br>
                                 <span> Giá: </span>
                                 <span class="price"> {{ number_format($item['price']) }} VNĐ </span>
@@ -52,7 +53,29 @@
                 <h3 class="title"> Hóa đơn </h3>
                 <div class="box">
                     <h3 class="total"> Thanh toán : <span>{{ number_format($total) }} VNĐ</span> </h3>
-                    <a href="#" class="btn">proceed to checkout</a>
+
+                    {{-- <a href="{{route('login_checkout')}}" class="btn">Thanh toán</a> --}}
+
+                    <form action="{{route('checkout')}}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="">Tên khách hàng</label>
+                            <input name="hoten">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Số điện thoại</label>
+                            <input name="sdt">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Địa chỉ</label>
+                            <input name="diachi">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Ghi chú</label>
+                            <input name="ghichu">
+                        </div>
+                        <button type="submit" class="btn">Thanh toán</button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -61,4 +84,6 @@
             <h3>Không có sản phẩm nào trong giỏ hàng</h3>
         </div>
     @endif
+
+
 @endsection
