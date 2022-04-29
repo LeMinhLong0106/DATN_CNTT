@@ -12,8 +12,9 @@ class DanhMucMA extends Model
         'tendm',
     ];
 
-    // public function monans()//1 danh muc có nhìu món ăn
-    // {
-    //     return $this->hasMany(MonAn::class, 'danhmuc');
-    // }
+    public function dm_monan()
+    {
+        return $this->hasMany(MonAn::class, 'danhmuc_id', 'id');
+    }
+    
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ban;
+use App\Models\CTHDTaiQuay;
 use App\Models\HDTaiQuay;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,8 @@ class HDTaiQuayController extends Controller
     public function index()
     {
         $data = HDTaiQuay::all();
-        return view('admin.hdtaiquay.index', compact('data'));
+        $cthd = CTHDTaiQuay::all();
+        return view('admin.hdtaiquay.index', compact('data', 'cthd'));
     }
 
     /**
@@ -45,9 +48,38 @@ class HDTaiQuayController extends Controller
      * @param  \App\Models\HDTaiQuay  $hDTaiQuay
      * @return \Illuminate\Http\Response
      */
-    public function show(HDTaiQuay $hDTaiQuay)
+    public function show($hDTaiQuay)
     {
-        //
+        $data = HDTaiQuay::find($hDTaiQuay);
+        $cthd = CTHDTaiQuay::where('hdtaiquay_id', $hDTaiQuay)->get();
+        //  $html =  $this->xyz($hDTaiQuay);
+        // return $html;
+        return response()->json([
+            'data' => $data,
+            'cthd' => $cthd
+        ]);
+        // dd($cthd);
+        // return view('admin.hdtaiquay.show', compact('data', 'cthd'));
+    }
+
+    public function thanhtoan($id)
+    {
+        $sale = HDTaiQuay::find($id);
+        $sale->tinhtrang = 1;
+        $sale->save();
+        $tabs = Ban::find($sale->ban_id);
+        $tabs->tinhtrang = 0;
+        $tabs->save();
+        // return './cashier/showReceipt/' . $saleid;
+        // return redirect()->route('admin.hdtaiquay.showReceipt', $id);
+        // return redirect()->route('admin.hdtaiquay.index');
+    }
+
+    public function showReceipt($id)
+    {
+        $sale = HDTaiQuay::find($id);
+        $cthd = CTHDTaiQuay::where('hdtaiquay_id', $id)->get();
+        return view('admin.hdtaiquay.showReceipt', compact('sale', 'cthd'));
     }
 
     /**
@@ -70,7 +102,6 @@ class HDTaiQuayController extends Controller
      */
     public function update(Request $request, HDTaiQuay $hDTaiQuay)
     {
-        //
     }
 
     /**
@@ -79,8 +110,39 @@ class HDTaiQuayController extends Controller
      * @param  \App\Models\HDTaiQuay  $hDTaiQuay
      * @return \Illuminate\Http\Response
      */
-    public function destroy(HDTaiQuay $hDTaiQuay)
+    public function destroy($hDTaiQuay)
     {
-        //
+        // $data = HDTaiQuay::find($hDTaiQuay);
+        // $data->delete();
+        // return response()->json([
+        //     'data' => $data
+        // ]);
+    }
+
+    public function deleteHD($hDTaiQuay)
+    {
+        $data = HDTaiQuay::find($hDTaiQuay);
+        $data->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Xóa thành công'
+        ]);
+    }
+
+    public function deleteCTHD($id)
+    {
+        $cthd = CTHDTaiQuay::find($id);
+
+        $id_hd = $cthd->hdtaiquay_id;
+        $cthd->delete(); //xoa cthd
+
+        $hd = HDTaiQuay::find($id_hd);
+        $hd->tongtien = $hd->tongtien - ($cthd->giaban * $cthd->soluong); //tong tien
+        $hd->save(); //luu hd
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Xóa thành công'
+        ]);
     }
 }

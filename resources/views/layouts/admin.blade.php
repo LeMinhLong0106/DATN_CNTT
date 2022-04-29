@@ -52,7 +52,7 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
 
-                @if (Auth::user()->name == 'long')
+                {{-- @if (Auth::user()->name == 'long') --}}
                     <!-- Divider -->
                     <hr class="sidebar-divider my-0">
 
@@ -104,6 +104,7 @@
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <a class="collapse-item" href="{{ route('order.index') }}">Tại chỗ</a>
                                 <a class="collapse-item" href="#">Online</a>
+                                <a class="collapse-item" href="{{ route('order.giaodienDB') }}">giao dieen db</a>
                             </div>
                         </div>
                     </li>
@@ -153,14 +154,14 @@
                             <i class="fas fa-user-lock"></i>
                             <span>Phân quyền</span></a>
                     </li>
-                @endif
-                @if (Auth::user()->name == 'tien')
+                {{-- @endif --}}
+                {{-- @if (Auth::user()->name == 'tien') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <i class="fas fa-user-lock"></i>
                             <span>Thu Ngân</span></a>
                     </li>
-                @endif
+                {{-- @endif --}}
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
@@ -279,10 +280,14 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> --}}
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> --}}
 
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Bootstrap core JavaScript-->
     {{-- <script src="vendor/jquery/jquery.min.js"></script> --}}
@@ -296,7 +301,7 @@
     <script type="text/javascript" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> --}}
 
     {{-- {{ asset('datatables/dataTables.bootstrap4.min.css') }} --}}
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('js/jquery.min.js') }}"></script> --}}
 
     <!-- Page level plugins -->
     <script src="{{ asset('datatables/jquery.dataTables.min.js') }}"></script>

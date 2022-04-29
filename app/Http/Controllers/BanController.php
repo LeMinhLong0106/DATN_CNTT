@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ban;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BanController extends Controller
 {
@@ -15,8 +16,7 @@ class BanController extends Controller
     public function index()
     {
         $data = Ban::all(); // lấy toàn bộ dữ liệu từ bảng ban
-        return view('admin.ban.index',compact('data'));
-        // return Ban::all();
+        return view('admin.ban.index', compact('data'));
     }
 
     /**
@@ -24,9 +24,14 @@ class BanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function create()
     {
-        return view('admin.ban.create');
+        $data = Ban::all();
+        return response()->json([
+            'data' => $data,
+        ], 200);
     }
 
     /**
@@ -35,13 +40,30 @@ class BanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        $add = Ban::create($request->all());
-        if($add){
-            return redirect()->route('ban.index')->with('success','Thêm mới thành công');
-        }
-        return redirect()->back()->with('error','Thêm mới thất bại');
+        // $this->validate($request, [
+        //     'ghe' => 'required',
+        // ], [
+        //     'ghe.required' => 'Bạn chưa nhập số ghế',
+        // ]);
+
+        // $request->validate([
+        //     'ghe' => 'required',
+        // ], [
+        //     'ghe.required' => 'Bạn chưa nhập số ghế',
+        // ]);
+    
+        $data = Ban::updateOrCreate(
+            ['id' => $request->id],
+            [
+                'ghe' => $request->ghe,
+                'tinhtrang' => $request->tinhtrang
+            ]
+        );
+
+        return response()->json($data);
     }
 
     /**
@@ -60,18 +82,23 @@ class BanController extends Controller
         // return view('admin.ban.show');
         // return Ban::find($ban);
         $data = Ban::find($ban);
-        return view('admin.ban.show', compact('data'));
+        return response()->json([
+            'data' => $data,
+            'status_code' => 200,
+            'message' => 'Lấy thành cônggg'
+        ], 200);
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Ban  $ban
      * @return \Illuminate\Http\Response
      */
+
     public function edit(Ban $ban)
     {
-        return view('admin.ban.edit');
+        return response()->json($ban);
     }
 
     /**
@@ -83,11 +110,19 @@ class BanController extends Controller
      */
     public function update(Request $request, $ban)
     {
-        $data = Ban::find($ban);
-        $data->ghe = $request->ghe;
-        $data->tinhtrang = $request->tinhtrang;
-        $data->save();
-        return redirect()->route('ban.index');
+        // $request->validate([
+        //     'ghe' => 'required',
+        // ], [
+        //     'ghe.required' => 'Bạn chưa nhập số ghế',
+        // ]);
+
+        // $data = Ban::find($ban);
+        // $data->ghe = $request->ghe;
+        // $data->tinhtrang = $request->tinhtrang;
+        // $data->save();
+        // $request->session()->flash('status', 'Cập nhật thành công!');
+
+        // return redirect()->route('ban.index');
     }
 
     /**
@@ -96,10 +131,29 @@ class BanController extends Controller
      * @param  \App\Models\Ban  $ban
      * @return \Illuminate\Http\Response
      */
-    public function destroy($ban)
+    public function destroy(Ban $ban)
     {
-        $data = Ban::find($ban);
-        $data->delete();
-        return redirect()->back();
+        $ban->delete();
+        return response()->json('success');
+        // $data = Ban::find($ban);
+        // $data->delete();
+        // session()->flash('status', ' Xóa thành công!');
+
+        // return redirect()->back();
+
+        // $data = Ban::find($ban);
+
+        // if ($data->delete()) {
+        //     return response()->json([
+        //         'data' => $data,
+        //         'status_code' => 200,
+        //         'message' => 'Xóa thành công'
+        //     ]);
+        // }
+        // return response()->json([
+        //     'data' => null,
+        //     'status_code' => 404,
+        //     'message' => 'Xóa thất bại'
+        // ]);
     }
 }

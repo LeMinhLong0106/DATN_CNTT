@@ -9,6 +9,7 @@ class HDTaiQuay extends Model
     protected $table = 'hdtaiquay';
     protected $fillable = [
         'tinhtrang', 'tongtien', 'nhanvien_id', 'ban_id', 'created_at'
+        
     ];
 
     public function nhanviens()

@@ -24,4 +24,4 @@ use Illuminate\Support\Facades\Route;
 
 // Route::prefix('v1')
 
-// Route::resource('ban', 'BanController');
+Route::resource('ban', 'BanController');

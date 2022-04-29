@@ -57,6 +57,12 @@
     <div class="checkform">
         <div class="content">
             <h3>CẬP NHÂT BÀN</h3>
+            {{-- hiển thị các lỗi --}}
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger">
+                    {{ $error }}
+                </div>
+            @endforeach
             <form action="{{ route('ban.update', [$data->id]) }}" method="post">
                 @method('PUT')
                 @csrf

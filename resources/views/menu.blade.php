@@ -26,6 +26,7 @@
             <div>
                 <h3>{{ $item->tendm }}</h3>
                 <div class="box-container">
+                    
                     @foreach ($monans as $ma)
                         @if ($ma->danhmuc == $item->id)
                             <div class="box">

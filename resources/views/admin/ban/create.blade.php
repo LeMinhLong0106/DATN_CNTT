@@ -57,6 +57,14 @@
     <div class="checkform">
         <div class="content">
             <h3>THÊM MỚI ĐỒ UỐNG</h3>
+            
+            {{-- hiển thị các lỗi --}}
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger">
+                    {{ $error }}
+                </div>
+            @endforeach
+            
             <form action="{{ route('ban.store') }}" method="post">
                 @csrf
                 <div class="form-horizontal">

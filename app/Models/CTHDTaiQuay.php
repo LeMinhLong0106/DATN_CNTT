@@ -8,7 +8,7 @@ class CTHDTaiQuay extends Model
 {
     protected $table = 'cthdtaiquay';
     protected $fillable = [
-        'hdtaiquay_id', 'monan_id', 'soluong', 'thanhtien'
+        'hdtaiquay_id', 'monan_id', 'soluong', 'thanhtien' ,'giaban'
     ];
 
     public function hdtaiquay()
@@ -16,7 +16,7 @@ class CTHDTaiQuay extends Model
         return $this->belongsTo(HDTaiQuay::class, 'hdtaiquay_id');
     }
 
-    public function monan()
+    public function monanss()
     {
         return $this->belongsTo(MonAn::class, 'monan_id');
     }
