@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin')
 
 @section('content_admin')
 <div class="container-fluid">
@@ -20,17 +20,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($data as $item)
-                                    <tr>
-                                        <td>{{ $item->ten }}</td>
-                                        <td>{{ $item->soluong }}</td>
-                                        <td>{{ $item->gia }}</td>
-                                        <td>{{ $item->ghichu }}</td>
-                                        <td>
-                                            <a href="#" class="">Xóa</a>
-                                        </td>
-                                    </tr>
-                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
@@ -39,4 +28,4 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection --}}

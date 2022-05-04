@@ -14,7 +14,8 @@ class QuyenController extends Controller
      */
     public function index()
     {
-        //
+        $data = Quyen::all();
+        return view('admin.quyen.index', compact('data'));
     }
 
     /**

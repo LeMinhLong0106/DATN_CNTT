@@ -14,4 +14,5 @@ class Quyen extends Model
     public function quyenCon(){
         return $this->hasMany(Quyen::class, 'parent_id');
     }
+    
 }

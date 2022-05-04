@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="content">
                                     <h3>{{ $ma->tenmonan }}</h3>
-                                    <div class="price">{{ $ma->gia }}/{{ $ma->donvitinhs->tendvt }}</div>
+                                    <div class="price">{{ $ma->gia }}/{{ $ma->donvitinh }}</div>
                                     <a href="{{ route('detail', [$item->id]) }}" class="btn">Chi tiết</a>
 
                                     <a href="#" data-url="{{ route('addToCart', [$ma->id]) }}"

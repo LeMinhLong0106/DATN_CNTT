@@ -1,4 +1,4 @@
-<div id="tableDetails">
+<div>
     @foreach ($bans as $b)
         {{-- đổi màu bàn --}}
         @if ($b->tinhtrang == 0)
@@ -17,12 +17,6 @@
             </button>
         @endif
     @endforeach
-    {{-- <div id="showSelectedTable">
-    </div> --}}
-
-    {{-- <div id="showSelectedMenuAndTable">
-
-    </div> --}}
 
 </div>
 
@@ -32,27 +26,13 @@
     <div class="modal-dialog">
         <form method="post" id="order_form">
             @csrf
-
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="modal_title">Thêm món ăn</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <span id="form_message"></span>
-                    {{-- <div class="form-group">
-                            <label>Danh mục</label>
-                            <select name="category_name" id="category_name" class="form-control" required
-                                data-parsley-trigger="change">
-                                <option value="">Chọn danh mucn món</option>
-
-                                @foreach ($danhmucs as $dm)
-                                    <option value="{{ $dm->id }}" class="form-control">{{ $dm->tendm }}
-                                    </option>
-                                @endforeach
-
-                            </select>
-                        </div> --}}
+                    {{-- <span id="form_message"></span> --}}
                     <div class="form-group">
                         <label>Món ăn</label>
                         <select name="product_name" id="product_name" class="form-control" required>
@@ -76,9 +56,6 @@
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="hidden_table_id" id="hidden_table_id" />
-                    <input type="hidden" name="hidden_order_id" id="hidden_order_id" />
-                    <input type="hidden" name="hidden_product_rate" id="hidden_product_rate" />
-                    <input type="hidden" name="hidden_table_name" id="hidden_table_name" />
                     <input type="hidden" name="action" id="action" value="Add" />
                     <input type="submit" name="submit" id="submit_button" class="btn btn-success" value="Add" />
                 </div>
@@ -89,29 +66,40 @@
 
 <script>
     $(document).ready(function() {
+
+        function fetch_table_status() {
+            $.ajax({
+                url: "{{ route('order.table_status') }}",
+                method: "GET",
+                success: function(data) {
+                    $('#table_status').html(data);
+                }
+            })
+        }
+
+        // nhấn hiển thị thông tin bàn
         $('.table_button').click(function() {
             var table_id = $(this).data('table_id');
             $('#hidden_table_id').val(table_id);
             $('#modal_title').text('Thêm món ăn cho bàn ' + table_id);
-            $('#order_form')[0].reset();
-            $('#form_message').html('');
-            $('#submit_button').val('Add');
-            $('#action').val('Add');
+            // $('#order_form')[0].reset();
+            $('#submit_button').val('Thêm');
             $('#orderModal').modal('show');
 
             $.get('/order/getSaleDetails/' + table_id, function(data) {
                 $("#showSelectedMenuAndTable").html(data);
             });
-        });
 
-        $('#order_form').on('submit', function(event) {
-            event.preventDefault();
+            $('#showSelectedTable').html("<h3>Bàn: " + table_id + "</h3>");
+
+        });
+        // thêm món ăn
+        $('#order_form').on('submit', function(e) {
+            e.preventDefault();
             var table_id = $('#hidden_table_id').val();
             var product_name = $('#product_name').val();
             var product_quantity = $('#product_quantity').val();
             var product_note = $('#product_note').val();
-            // var action = $('#action').val();
-
             $.ajax({
                 url: "{{ route('order.orderFood') }}",
                 method: "POST",
@@ -121,19 +109,21 @@
                     product_name: product_name,
                     product_quantity: product_quantity,
                     product_note: product_note,
-                    // action: action,
                 },
                 success: function(data) {
                     $('#order_form')[0].reset();
                     $('#orderModal').modal('hide');
-                    $('#showSelectedMenuAndTable').html(
-                        data); //show selected menu and table
+                    $('#showSelectedMenuAndTable').html(data);
+
+                    setTimeout(() => {
+                        fetch_table_status();
+                    }, 2000);
                 }
             });
-            event.stopImmediatePropagation(); //stop submit form
+            e.stopImmediatePropagation(); //stop submit form
         });
-
-        $('#showSelectedMenuAndTable').on('click', '.btnConfirmOrder', function(event) {
+        // xác nhận món ăn nấu xong
+        $('#showSelectedMenuAndTable').on('click', '.btnConfirmOrder', function(e) {
             SALE_ID = $(this).data('id');
             $.ajax({
                 type: "POST",
@@ -143,13 +133,14 @@
                     "sale_id": SALE_ID
                 },
                 success: function(result) {
+                    // console.log(result);
                     $("#showSelectedMenuAndTable").html(result);
                 }
             })
-            event.stopImmediatePropagation();
+            e.stopImmediatePropagation();
         });
-
-        $('#showSelectedMenuAndTable').on('click', '.btnDeleteOrder', function(event) {
+        // xóa món ăn
+        $('#showSelectedMenuAndTable').on('click', '.btnDeleteOrder', function(e) {
             SALE_ID = $(this).data('id');
             $.ajax({
                 type: "POST",
@@ -162,19 +153,9 @@
                     $("#showSelectedMenuAndTable").html(result);
                 }
             })
-            event.stopImmediatePropagation();
+            e.stopImmediatePropagation();
         });
-
-        $('#tableDetails').on('click', '.table_button', function() {
-            var table_id = $(this).data('table_id');
-            $('#showSelectedTable').html("<h3>Bàn: " + table_id + "</h3>");
-
-            // $.get('/order/getSaleDetails/' + table_id, function(data) {
-            //     $("#showSelectedMenuAndTable").html(data);
-            // })
-        });
-
-        // 
+        // nhấn nút thanh toán
         $('#btn_savePayment').click(function(e) {
             sales_id = SALES_ID
             $.ajax({
@@ -193,8 +174,66 @@
 
             e.stopImmediatePropagation();
         })
+        // nhân nút tăng số lượng
+        $('#showSelectedMenuAndTable').on('click', '.increment-btn', function(e) {
+            e.preventDefault();
+            var incre_value = $(this).parents('.quantity').find('.qty-input').val();
+            var value = parseInt(incre_value, 10);
+            value = isNaN(value) ? 0 : value; //nếu không phải số thì gán bằng 0
+            if (value < 10) {
+                value++;
+                $(this).parents('.quantity').find('.qty-input').val(value); //update value
+            }
+        });
+        $('#showSelectedMenuAndTable').on('click', '.changeQuantityIn', function(e) {
+            e.preventDefault();
+            var quantity = $(this).parents('.quantity').find('.qty-input').val();
+            var sale_id = $(this).data('id');
+            $.ajax({
+                type: "POST",
+                url: "{{ route('order.changeQuantityIn') }}",
+                data: {
+                    "_token": $('meta[name="csrf-token"]').attr('content'),
+                    "sale_id": sale_id,
+                    "quantity": quantity
+                },
+                success: function(result) {
+                    $("#showSelectedMenuAndTable").html(result);
+                }
+            })
+        });
+        // nhấn nút giảm số lượng
+        $('#showSelectedMenuAndTable').on('click', '.decrement-btn', function(e) {
+            e.preventDefault();
+            var decre_value = $(this).parents('.quantity').find('.qty-input').val();
+            var value = parseInt(decre_value, 10);
+            value = isNaN(value) ? 0 : value;
+            if (value > 1) {
+                value--;
+                $(this).parents('.quantity').find('.qty-input').val(value);
+            }
+        });
+        $('#showSelectedMenuAndTable').on('click', '.changeQuantityDe', function(e) {
+            e.preventDefault();
 
+            var quantity = $(this).parents('.quantity').find('.qty-input').val();
+            var sale_id = $(this).data('id');
+            // if (quantity > 1) {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('order.changeQuantityDe') }}",
+                data: {
+                    "_token": $('meta[name="csrf-token"]').attr('content'),
+                    "sale_id": sale_id,
+                    "quantity": quantity
+                },
+                success: function(result) {
+                    $("#showSelectedMenuAndTable").html(result);
+                }
+            })
+            // }
 
+        });
 
     });
 </script>

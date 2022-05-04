@@ -41,7 +41,7 @@
                             </label>
                         </div>
                         @foreach ($quyenCha as $item)
-                            <div class="card border-primary col-md-4">
+                            <div class="card border-primary col-md-12">
                                 <div class="card-header">
                                     <label>
                                         <input type="checkbox" value="" class="checkbox_wrap">

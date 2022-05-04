@@ -9,11 +9,11 @@ class NhanVien extends Model
     protected $table = 'users';
     protected $fillable = [
         // 'MaNV','HoNV', 'TenNV', 'GioiTinh', 'NgaySinh', 'DiaChi', 'SoDT', 'AnhNV', 'Email', 'MatKhau','MaNhom'
-        'name', 'email', 'password' 
+        'name', 'email', 'password', 'vaitro_id' 
     ];
 
-    public function vaitros()
+    public function vaitross()
     {
-        return $this->belongsToMany(VaiTro::class, 'nhanvien_vaitro', 'nhanvien_id', 'vaitro_id');
+        return $this->belongsTo(VaiTro::class, 'vaitro_id');
     }
 }

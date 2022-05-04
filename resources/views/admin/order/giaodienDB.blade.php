@@ -14,6 +14,7 @@
                                         <th>#</th>
                                         <th>Tên món ăn</th>
                                         <th>Số lượng</th>
+                                        <th>Danh mục</th>
                                         <th>Ghi chú</th>
                                     </tr>
                                 </thead>
@@ -22,8 +23,9 @@
                                         @if ($item->tinhtrang == 0)
                                             <tr>
                                                 <td>{{ $item->id }}</td>
-                                                <td> {{ $item->monanss->tenmonan }} </td>
+                                                <td> {{ $item->tenmonan }} </td>
                                                 <td>{{ $item->soluong }}</td>
+                                                <td>{{ $item->tendm }}</td>
                                                 <td>{{ $item->ghichu }}</td>
                                             </tr>
                                         @endif

@@ -16,10 +16,10 @@ class MonAn extends Model
         return $this->belongsTo(DanhMucMA::class, 'danhmuc');// tham số 1 là class, tham số 2 là khóa ngoại của bảng món ăn
     }
 
-    public function donvitinhs()
-    {
-        return $this->belongsTo(DonViTinh::class, 'donvitinh');
-    }
+    // public function donvitinhs()
+    // {
+    //     return $this->belongsTo(DonViTinh::class, 'donvitinh');
+    // }
 
     public function hdtaiquays()
     {

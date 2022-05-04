@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DanhMucMA;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DanhMucMAController extends Controller
 {
@@ -14,8 +15,8 @@ class DanhMucMAController extends Controller
      */
     public function index()
     {
-        $data = DanhMucMA::all();
-        return view('admin.danhmucmonan.index',compact('data'));
+        $data = DanhMucMA::all(); // lấy toàn bộ dữ liệu từ bảng ban
+        return view('admin.danhmucmonan.index', compact('data'));
     }
 
     /**
@@ -25,7 +26,10 @@ class DanhMucMAController extends Controller
      */
     public function create()
     {
-        return view('admin.danhmucmonan.create');
+        $data = DanhMucMA::all();
+        return response()->json([
+            'data' => $data,
+        ], 200);
     }
 
     /**
@@ -37,12 +41,26 @@ class DanhMucMAController extends Controller
 
     public function store(Request $request)
     {
-        $add = DanhMucMA::create($request->all());
-        if($add){
-            return redirect()->route('danhmucmonan.index')->with('success','Thêm mới thành công');
+        $validate = Validator::make($request->all(), [
+            'tendm' => 'required|unique:danh_muc_m_a_s,tendm',
+        ], [
+            'tendm.required' => 'Bạn chưa nhập tên danh mục',
+            'tendm.unique' => 'Tên danh mục đã tồn tại',
+        ]);
+        if ($validate->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validate->errors()->toArray(),
+            ]);
+        } else {
+            $data = DanhMucMA::updateOrCreate(
+                ['id' => $request->id],
+                [
+                    'tendm' => $request->tendm,
+                ]
+            );
+            return response()->json($data);
         }
-        return redirect()->back()->with('error','Thêm mới thất bại');
-        // dd($add);
     }
 
     /**
@@ -54,7 +72,7 @@ class DanhMucMAController extends Controller
     public function show($danhMucMA)
     {
         $data = DanhMucMA::find($danhMucMA);
-        return view('admin.danhmucmonan.show',compact('data'));
+        return response()->json($data);
     }
 
     /**
@@ -63,9 +81,10 @@ class DanhMucMAController extends Controller
      * @param  \App\Models\DanhMucMA  $danhMucMA
      * @return \Illuminate\Http\Response
      */
+
     public function edit(DanhMucMA $danhMucMA)
     {
-        return view('admin.danhmucmonan.edit');
+        // return response()->json($danhMucMA);
     }
 
     /**
@@ -77,10 +96,6 @@ class DanhMucMAController extends Controller
      */
     public function update(Request $request, $danhMucMA)
     {
-        $data = DanhMucMA::find($danhMucMA);
-        $data->tendm = $request->tendm;
-        $data->save();
-        return redirect()->route('danhmucmonan.index');
     }
 
     /**
@@ -93,6 +108,6 @@ class DanhMucMAController extends Controller
     {
         $data = DanhMucMA::find($danhMucMA);
         $data->delete();
-        return redirect()->route('danhmucmonan.index');
+        return response()->json('Xóa thành công');
     }
 }

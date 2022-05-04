@@ -92,7 +92,7 @@
                             {{ Session::get('tenkh') }}</a>
                     </li>
                     <li>
-                        <a href="{{ route('logout') }}">Đăng xuất</a>
+                        <a href="{{ route('logout_kh') }}">Đăng xuất</a>
                     </li>
                 @else
                     <li>

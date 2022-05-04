@@ -24,4 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::prefix('v1')
 
-Route::resource('ban', 'BanController');
+// Route::resource('ban', 'BanController');
+// Route::resource('danhmuc', 'DanhMucMAController');
+// Route::resource('monan', 'MonAnController');
+// Route::post('updateMonAn/{id}', 'MonAnController@updateMonAn')->name('monan.updateMonAn');

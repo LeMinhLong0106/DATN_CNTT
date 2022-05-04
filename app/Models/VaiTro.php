@@ -14,4 +14,8 @@ class VaiTro extends Model
     public function quyens(){
         return $this->belongsToMany(Quyen::class, 'vaitro_quyen', 'vaitro_id', 'quyen_id');
     }
+
+    public function users(){
+        return $this->hasMany(User::class, 'vaitro_id');
+    }
 }

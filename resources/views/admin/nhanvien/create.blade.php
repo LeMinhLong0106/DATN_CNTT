@@ -69,7 +69,7 @@
     <div class="checkform">
         <div class="content">
             <h3>THÊM MỚI NHÂM VIÊN</h3>
-            <form action="{{ route('nhanvien.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('nhanvien.store') }}" method="post" >
                 @csrf
                 <div class="form-horizontal">
                     <hr />
@@ -95,11 +95,22 @@
                         </div>
                     </div>
 
-                    <div class="form-group1">
+                    {{-- <div class="form-group1">
                         <label for="vaitro" class="control-label col-md-4"><b>Vai trò: </b></label>
                         <div class="col-md-8">
                             <select name="vaitro_id[]" class="form-control tags_select_choose" multiple>
                                 <option value=""></option>
+                                @foreach ($vaitros as $vt)
+                                    <option value="{{ $vt->id }}">{{ $vt->tenvaitro }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div> --}}
+                    <div class="form-group1">
+                        <label for="vaitro_id" class="control-label col-md-4"><b>Vai trò: </b></label>
+                        <div class="col-md-8">
+                            <select name="vaitro_id" class="form-control">
+                                <option value="">Chọn vai trò</option>
                                 @foreach ($vaitros as $vt)
                                     <option value="{{ $vt->id }}">{{ $vt->tenvaitro }}</option>
                                 @endforeach

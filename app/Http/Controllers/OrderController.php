@@ -9,6 +9,7 @@ use App\Models\HDTaiQuay;
 use App\Models\MonAn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -25,10 +26,32 @@ class OrderController extends Controller
     }
 
     public function giaodienDB()
-    {  
+    {
         $data = HDTaiQuay::all();
         // $cthd = CTHDTaiQuay::orderBy('monan_id', 'desc')->get();// sếp xếp theo id món ăn giảm dần
-        $cthd = CTHDTaiQuay::orderBy('monan_id')->get();// sếp xếp theo id món ăn tăng dần
+        // $cthd = CTHDTaiQuay::get(); // sếp xếp theo id món ăn tăng dần
+        // $cthd = CTHDTaiQuay::join('mon_ans', 'monan_id', '=', 'mon_ans.id')->join('danh_muc_m_a_s', 'danhmuc', '=', 'danh_muc_m_a_s.id')->orderBy('danh_muc_m_a_s.id', 'desc')->get(); // sếp xếp theo id danh mục giảm dần
+        // $cthd = CTHDTaiQuay::join('mon_ans', 'monan_id', '=', 'mon_ans.id')->join('danh_muc_m_a_s', 'danhmuc', '=', 'danh_muc_m_a_s.id')->get(); // sếp xếp theo id danh mục giảm dần
+        
+        // $cthd = DB::table('mon_ans')
+        //     ->join('cthdtaiquay', 'mon_ans.id', '=', 'cthdtaiquay.monan_id')
+        //     ->join('danh_muc_m_a_s', 'mon_ans.id', '=', 'danh_muc_m_a_s.id')
+        //     ->get();
+
+        $cthd = DB::table('cthdtaiquay')
+            ->leftJoin('mon_ans', 'cthdtaiquay.monan_id', '=', 'mon_ans.id')
+            ->leftJoin('danh_muc_m_a_s', 'mon_ans.danhmuc', '=', 'danh_muc_m_a_s.id')
+            ->select(['cthdtaiquay.*', 'mon_ans.tenmonan', 'danh_muc_m_a_s.tendm'])
+            ->orderBy('danh_muc_m_a_s.id', 'desc')
+            ->get();
+
+            // $cthd = DB::table('mon_ans')
+            // ->leftJoin('cthdtaiquay', 'mon_ans.id', '=', 'cthdtaiquay.monan_id')
+            // ->get();
+
+        // $a = CTHDTaiQuay::with(['monanss'])->first()->monanss['tenmonan'];// lấy ra tên món ăn đầu tiên trong bảng cthdtaiquay
+        // $cthd = CTHDTaiQuay::with(['monanss'])->get();// lấy ra tất cả các món ăn trong bảng cthdtaiquay   
+        // dd($cthd);
         return view('admin.order.giaodienDB', compact('data', 'cthd'));
     }
 
@@ -54,6 +77,7 @@ class OrderController extends Controller
         $monans = MonAn::all();
         $bans = Ban::all();
         return view('admin.order.table_status', compact('data', 'bans', 'monans', 'danhmucs'));
+        // return 'hi';
     }
 
     public function order_status()
@@ -66,7 +90,7 @@ class OrderController extends Controller
 
     public function getSaleDetails($table_id) //nhấn vào bàn thì hiển thị danh sách món ăn
     {
-        $sale =  HDTaiQuay::where('ban_id', $table_id)->where('tinhtrang', 0)->first();//lấy hóa đơn có trạng thái 0
+        $sale =  HDTaiQuay::where('ban_id', $table_id)->where('tinhtrang', 0)->first(); //lấy hóa đơn có trạng thái 0
         $html = " ";
         if ($sale) {
             $sale_id = $sale->id;
@@ -91,7 +115,6 @@ class OrderController extends Controller
             $sale->ban_id = $table_id;
             $sale->nhanvien_id = $user->id;
             $sale->save();
-
             // lưu bàn
             $table = Ban::find($table_id);
             $table->tinhtrang = 1; //đã đặt
@@ -125,8 +148,6 @@ class OrderController extends Controller
     //     return $html;
     // }
 
-
-
     private function xyz($sale_id)
     {
         // hiển thị bên chi tiết
@@ -148,28 +169,43 @@ class OrderController extends Controller
         <tbody>";
 
         foreach ($saleDetails as $sd) {
-            $html .= "<tr>
-            <td>" . $sd->id . "</td>
-            <td>" . $sd->monanss->tenmonan . "</td>
-            <td>" . $sd->soluong . "</td>
-            <td>" . $sd->ghichu  . "</td>
-            <td>" . $sd->soluong * $sd->giaban  . "</td>";
+            $html .= "<tr>" .
+                "<td>" . $sd->id . "</td>" .
+                "<td>" . $sd->monanss->tenmonan . "</td>";
             if ($sd->tinhtrang == 0) {
-                $html .= "<td>Đang nấu</td>";
+                $html .= "
+                <td class='cart-product-quantity' width='140px'>
+                    <div class='input-group quantity'>
+                        <div class='input-group-prepend decrement-btn changeQuantityDe' data-id='" . $sd->id . "'  style='cursor: pointer'>
+                            <span class='input-group-text'>-</span>
+                        </div>
+                        <input type='text' class='qty-input form-control' maxlength='2' max='10' value='$sd->soluong'>
+                        <div class='input-group-append increment-btn changeQuantityIn'  data-id='" . $sd->id . "'  style='cursor: pointer'>
+                            <span class='input-group-text'>+</span>
+                        </div>
+                    </div>
+                </td>
+                ";
             } else {
-                $html .= "<td>Đã nấu xong</td>";
+                $html .= "<td>$sd->soluong</td>";
+            }
+            $html .= "<td>$sd->ghichu</td>" .
+                "<td>" . $sd->giaban * $sd->soluong . "</td>";
+
+            if ($sd->tinhtrang == 0) {
+                $html .= "<td>Đang chờ</td>";
+            } else {
+                $html .= "<td>Xong</td>";
             }
 
             if ($sd->tinhtrang == 0) {
                 $html .=  "<td>
-                <button data-id='" . $sd->id . "' class='btn btn-danger btnDeleteOrder'><i class='fa fa-trash' aria-hidden='true'></i></button>
-                <button data-id='" . $sd->id . "' class='btn btn-primary btnConfirmOrder'>Xac nhan</button>
-                
+                <button data-id='" . $sd->id . "' class='btn btn-danger btnDeleteOrder'><i class='fa fa-trash'></i></button>
+                <button data-id='" . $sd->id . "' class='btn btn-primary btnConfirmOrder'><i class='fa fa-check'></i></button>
                 </td>";
             } else {
-                $html .=  "<td><i class='fa fa-check' aria-hidden='true'></i></td>";
+                $html .=  "<td><i class='fa fa-check'></i></td>";
             }
-
             $html .= "
             </tr>";
         }
@@ -177,31 +213,24 @@ class OrderController extends Controller
             </table>";
 
         $sale_tp = HDTaiQuay::find($sale_id);
-        $html .= "<h3>Tong tien: " . $sale_tp->tongtien . "</h3>";
+        $html .= "<h3>Tổng tiền: " . $sale_tp->tongtien . "</h3>";
 
         return  $html;
     }
 
     public function confirmOrder(Request $request)
     {
-        $sale_id = $request->sale_id;
-        $sale = CTHDTaiQuay::find($sale_id);
-        $sale->tinhtrang = 1;
-        $sale->save();
-        // $html =  $this->xyz($sale_id);
-        // return $html;
+        $id_cthd = $request->sale_id;
+        $cthd = CTHDTaiQuay::find($id_cthd);
+        $cthd->tinhtrang = 1;
+        $cthd->save();
+        $id_hd = $cthd->hdtaiquay_id;
+        $html =  $this->xyz($id_hd);
+        return  $html;
     }
 
     public function deleteOrder(Request $request)
     {
-        // $sale_id = $request->sale_id;
-        // $saleDetail = CTHDTaiQuay::find($sale_id);
-        // $saleDetail->delete();
-        // $sale_id = $saleDetail->hdtaiquay_id;
-
-        // $html =  $this->xyz($sale_id);
-        // return $html;
-
         $id_cthd = $request->sale_id;
         $cthd = CTHDTaiQuay::find($id_cthd);
 
@@ -209,11 +238,49 @@ class OrderController extends Controller
         $cthd->delete(); //xoa cthd
 
         $hd = HDTaiQuay::find($id_hd);
-        $hd->tongtien = $hd->tongtien - ($cthd->giaban * $cthd->soluong); //tong tien
+        $hd->tongtien = $hd->tongtien - ($cthd->giaban * $cthd->soluong);
         $hd->save(); //luu hd
         $html =  $this->xyz($id_hd);
         return  $html;
     }
+
+    public function changeQuantityIn(Request $request)
+    {
+        $id_cthd = $request->sale_id;
+        $cthd = CTHDTaiQuay::find($id_cthd);
+
+        $cthd->soluong = $request->quantity;
+        $cthd->save();
+
+        $id_hd = $cthd->hdtaiquay_id;
+        $hd = HDTaiQuay::find($id_hd);
+
+        $hd->tongtien = $hd->tongtien + ($cthd->giaban * $cthd->soluong) - ($cthd->giaban * ($cthd->soluong - 1));
+
+        $hd->save(); //luu hd
+
+        $html =  $this->xyz($id_hd);
+        return  $html;
+    }
+
+    public function changeQuantityDe(Request $request)
+    {
+        $id_cthd = $request->sale_id;
+        $cthd = CTHDTaiQuay::find($id_cthd);
+
+        $cthd->soluong = $request->quantity;
+        $cthd->save();
+
+        $id_hd = $cthd->hdtaiquay_id;
+        $hd = HDTaiQuay::find($id_hd);
+        $hd->tongtien = $hd->tongtien - ($cthd->giaban * $cthd->soluong) + ($cthd->giaban * ($cthd->soluong - 1));
+
+        $hd->save(); //luu hd
+
+        $html =  $this->xyz($id_hd);
+        return  $html;
+    }
+
 
     /**
      * Store a newly created resource in storage.

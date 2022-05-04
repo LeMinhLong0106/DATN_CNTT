@@ -60,7 +60,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="cthd_table">
+                    <table id="cthd_table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -68,10 +68,10 @@
                                 <th>Số lượng</th>
                                 <th>Ghi chú</th>
                                 <th>Tổng tiền</th>
-                                <th>Hành động</th>
+                                {{-- <th>Hành động</th> --}}
                             </tr>
                         </thead>
-                        <tbody id="cthd_table_body">
+                        <tbody id="cthd_table_body"> 
                         </tbody>
                     </table>
                 </div>
@@ -135,9 +135,9 @@
                             html += '<td>' + item.ghichu + '</td>';
                         }
                         html += '<td>' + item.soluong * item.giaban + '</td>';
-                        html +=
-                            '<td><button type="button" class="btn btn-danger delete_cthd" data-id="' +
-                            item.id + '">Xóa</button></td>';
+                        // html +=
+                        //     '<td><button type="button" class="btn btn-danger delete_cthd" data-id="' +
+                        //     item.id + '">Xóa</button></td>';
                         html += '</tr>';
                         html += '</tr>';
                     });

@@ -98,7 +98,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group1">
+                    {{-- <div class="form-group1">
                         <label for="vaitro" class="control-label col-md-4"><b>Vai trò: </b></label>
                         <div class="col-md-8">
                             <select name="vaitro_id[]" class="form-control tags_select_choose" multiple>
@@ -110,8 +110,20 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div> --}}
+                    <div class="form-group1">
+                        <label for="vaitro" class="control-label col-md-4"><b>Vai trò: </b></label>
+                        <div class="col-md-8">
+                            <select name="vaitro_id" class="form-control" >
+                                {{-- <option value="">Chọn vai trò</option> --}}
+                                @foreach ($vaitros as $vt)
+                                    <option {{ $nhanvien_vaitro->contains('id', $vt->id) ? 'selected' : '' }}
+                                        value="{{ $vt->id }}">{{ $vt->tenvaitro }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-
 
                     <div class="form-group" style="align-items: baseline;">
                         <div style="margin-top: 10px;" class="col-md-offset-2 col-md-6">

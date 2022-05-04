@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col col-sm-4">
                 <div class="card shadow mb-4">
-                    
+
                     <div class="card-header py-3">Tình trạng bàn</div>
                     <div class="card-body" id="table_status">
 
@@ -15,12 +15,12 @@
             </div>
             <div class="col col-sm-8">
                 <div class="card shadow mb-4">
-                   
+
                     <div class="card-header py-3">Tình trạng order</div>
-                    
+
                     <div class="card-body">
                         <h3 id="showSelectedTable"></h3>
-                        <div class="table-responsive" id="showSelectedMenuAndTable" >
+                        <div class="table-responsive" id="showSelectedMenuAndTable">
 
                         </div>
                     </div>
@@ -55,7 +55,6 @@
                     }
                 })
             }
-
 
 
         });

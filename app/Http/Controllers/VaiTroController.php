@@ -38,7 +38,6 @@ class VaiTroController extends Controller
      */
     public function store(Request $request)
     {
-        
         $vaitro = VaiTro::create(
             [
                 'tenvaitro' => $request->tenvaitro,

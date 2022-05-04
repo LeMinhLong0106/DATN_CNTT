@@ -14,7 +14,8 @@ class DSQuyenController extends Controller
      */
     public function index()
     {
-        //
+        $data = DSQuyen::all();
+        return view('admin.dsquyen.index', compact('data'));
     }
 
     /**
@@ -46,7 +47,7 @@ class DSQuyenController extends Controller
      */
     public function show(DSQuyen $dSQuyen)
     {
-        //
+        
     }
 
     /**

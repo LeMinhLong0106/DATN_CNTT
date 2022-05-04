@@ -6,7 +6,6 @@
         $('.checkbox_wrap').on('click', function() {
             $(this).parents('.card').find('.checkbox_child').prop('checked', $(this).prop('checked'));
         })
-
         $('.checkall').on('click', function() {
             $(this).parents().find('.checkbox_wrap').prop('checked', $(this).prop('checked'));
             $(this).parents().find('.checkbox_child').prop('checked', $(this).prop('checked'));
@@ -16,20 +15,22 @@
 
 @section('content_admin')
     <div class="container-fluid">
-        <h3>THÊM MỚI VÀI TRÒ</h3>
+        <h3>CẬP NHẬT VÀI TRÒ</h3>
         <div>
-            <form action="{{ route('vaitro.store') }}" method="post">
+            <form action="{{ route('vaitro.update',[$data->id]) }}" method="post">
+                @method('PUT')
                 @csrf
-
-                <div class="col-md-12">
+                <div class="col-md-12 mb-4">
                     <div class="form-group1">
                         <label for="tenvaitro" class="control-label "><b>Tên vai trò: </b></label>
-                        <input type="text" class="form-control text-box single-line" id="tenvaitro" name="tenvaitro">
+                        <input type="text" value="{{ $data->tenvaitro }}" class="form-control text-box single-line"
+                            id="tenvaitro" name="tenvaitro">
                     </div>
 
                     <div class="form-group1">
                         <label for="mota" class="control-label "><b>Mô tả: </b></label>
-                        <input type="text" class="form-control text-box single-line" id="mota" name="mota">
+                        <input type="text" value="{{ $data->mota }}" class="form-control text-box single-line" id="mota"
+                            name="mota">
                     </div>
                 </div>
 
@@ -41,7 +42,7 @@
                             </label>
                         </div>
                         @foreach ($quyenCha as $item)
-                            <div class="card border-primary col-md-4">
+                            <div class="card border-primary col-md-12">
                                 <div class="card-header">
                                     <label>
                                         <input type="checkbox" value="" class="checkbox_wrap">
@@ -54,6 +55,7 @@
                                             <h5 class="card-title">
                                                 <label>
                                                     <input type="checkbox" class="checkbox_child" name="quyen_id[]"
+                                                        {{ $quyenCheck->contains('id', $item1->id) ? 'checked' : '' }}
                                                         value="{{ $item1->id }}">
                                                 </label>
                                                 {{ $item1->tenquyen }}

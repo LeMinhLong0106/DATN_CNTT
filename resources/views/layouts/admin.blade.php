@@ -52,7 +52,7 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
 
-                {{-- @if (Auth::user()->name == 'long') --}}
+                @if (Auth::user()->vaitro_id == 1)
                     <!-- Divider -->
                     <hr class="sidebar-divider my-0">
 
@@ -70,13 +70,13 @@
                     <div class="sidebar-heading">
                         Nhà hàng
                     </div>
-
+                    <!-- bàn -->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('ban.index') }}">
                             <i class="fas fa-fw fa-table"></i>
                             <span>Bàn</span></a>
                     </li>
-
+                    <!-- thực đơn -->
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_1"
                             aria-expanded="true" aria-controls="collapse_1">
@@ -86,29 +86,25 @@
                         <div id="collapse_1" class="collapse" aria-labelledby="headingTwo"
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <a class="collapse-item" href="{{ route('danhmucmonan.index') }}">Danh mục</a>
-                                <a class="collapse-item" href="{{ route('donvitinh.index') }}">Đơn vị</a>
+                                <a class="collapse-item" href="{{ route('danhmuc.index') }}">Danh mục</a>
+                                {{-- <a class="collapse-item" href="{{ route('donvitinh.index') }}">Đơn vị</a> --}}
                                 <a class="collapse-item" href="{{ route('monan.index') }}">Món ăn</a>
                             </div>
                         </div>
                     </li>
-
+                    <!-- order  -->
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_2"
-                            aria-expanded="true" aria-controls="collapse_2">
+                        <a class="nav-link collapsed" href="{{ route('order.index') }}">
                             <i class="fas fa-edit"></i>
                             <span>Đơn hàng</span>
                         </a>
-                        <div id="collapse_2" class="collapse" aria-labelledby="headingTwo"
-                            data-parent="#accordionSidebar">
-                            <div class="bg-white py-2 collapse-inner rounded">
-                                <a class="collapse-item" href="{{ route('order.index') }}">Tại chỗ</a>
-                                <a class="collapse-item" href="#">Online</a>
-                                <a class="collapse-item" href="{{ route('order.giaodienDB') }}">giao dieen db</a>
-                            </div>
-                        </div>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('order.giaodienDB') }}">
+                            <i class="fas fa-user-lock"></i>
+                            <span>Đầu bếp</span></a>
+                    </li>
+                    <!-- hóa đơn -->
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_3"
                             aria-expanded="true" aria-controls="collapse_3">
@@ -123,45 +119,68 @@
                             </div>
                         </div>
                     </li>
-
                     <!-- Divider -->
                     <hr class="sidebar-divider">
-
                     <!-- Heading -->
                     <div class="sidebar-heading">
                         Người dùng
                     </div>
-
+                    <!-- khách hàng -->
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <i class="fas fa-user-circle"></i>
                             <span>Khách hàng</span></a>
                     </li>
+                    <!-- nhân viên -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('nhanvien.index') }}">
-                            <i class="fas fa-user"></i>
-                            <span>Thông tin nhân viên</span></a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('vaitro.index') }}">
-                            <i class="fas fa-users-cog"></i>
-                            <span>Vai trò</span></a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_4"
+                            aria-expanded="true" aria-controls="collapse_4">
                             <i class="fas fa-user-lock"></i>
-                            <span>Phân quyền</span></a>
+                            <span>Nhân viên</span>
+                        </a>
+                        <div id="collapse_4" class="collapse">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <a class="collapse-item" href="{{ route('nhanvien.index') }}">Thông tin</a>
+                                <a class="collapse-item" href="{{ route('vaitro.index') }}">Vai trò</a>
+                                <a class="collapse-item" href="{{ route('quyen.index') }}">Quyền</a>
+                                <a class="collapse-item" href="{{ route('dsquyen.index') }}">Danh sách quyền</a>
+                            </div>
+                        </div>
                     </li>
-                {{-- @endif --}}
-                {{-- @if (Auth::user()->name == 'tien') --}}
+                @endif
+                @if (Auth::user()->vaitro_id == 2)
+                    <!-- hóa đơn -->
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-user-lock"></i>
-                            <span>Thu Ngân</span></a>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_3"
+                            aria-expanded="true" aria-controls="collapse_3">
+                            <i class="fas fa-file-invoice"></i>
+                            <span>Hóa đơn</span>
+                        </a>
+                        <div id="collapse_3" class="collapse" aria-labelledby="headingTwo"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <a class="collapse-item" href="{{ route('hdtaiquay.index') }}">Tại chỗ</a>
+                                <a class="collapse-item" href="{{ route('hdonline.index') }}">Online</a>
+                            </div>
+                        </div>
                     </li>
-                {{-- @endif --}}
+                @endif
+                @if (Auth::user()->vaitro_id == 3)
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('order.index') }}">
+                            <i class="fas fa-edit"></i>
+                            <span>Đơn hàng</span>
+                        </a>
+                    </li>
+                @endif
+                {{-- @if (Auth::user()->vaitro_id == 4)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('giaodienDB.index') }}">
+                            <i class="fas fa-user-lock"></i>
+                            <span>Đầu bếp</span></a>
+                    </li>
+                @endif --}}
+
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
@@ -194,8 +213,8 @@
                                     <li class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            Hé lô, {{ Auth::user()->name }}
-                                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                            Chào, {{ Auth::user()->name }}
+                                            {{-- <img class="img-profile rounded-circle" src="img/undraw_profile.svg"> --}}
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

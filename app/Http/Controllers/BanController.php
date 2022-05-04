@@ -43,27 +43,26 @@ class BanController extends Controller
 
     public function store(Request $request)
     {
-        // $this->validate($request, [
-        //     'ghe' => 'required',
-        // ], [
-        //     'ghe.required' => 'Bạn chưa nhập số ghế',
-        // ]);
-
-        // $request->validate([
-        //     'ghe' => 'required',
-        // ], [
-        //     'ghe.required' => 'Bạn chưa nhập số ghế',
-        // ]);
-    
-        $data = Ban::updateOrCreate(
-            ['id' => $request->id],
-            [
-                'ghe' => $request->ghe,
-                'tinhtrang' => $request->tinhtrang
-            ]
-        );
-
-        return response()->json($data);
+        $validate = Validator::make($request->all(), [
+            'ghe' => 'required',
+        ], [
+            'ghe.required' => 'Bạn chưa nhập số ghế',
+        ]);
+        if ($validate->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validate->errors()->toArray(),
+            ]);
+        } else {
+            $data = Ban::updateOrCreate(
+                ['id' => $request->id],
+                [
+                    'ghe' => $request->ghe,
+                    'tinhtrang' => $request->tinhtrang
+                ]
+            );
+            return response()->json($data);
+        }
     }
 
     /**
@@ -72,21 +71,11 @@ class BanController extends Controller
      * @param  \App\Models\Ban  $ban
      * @return \Illuminate\Http\Response
      */
-    // public function show(Ban $ban)
-    // {
-    //     return view('admin.ban.show');
-    // }
 
     public function show($ban)
     {
-        // return view('admin.ban.show');
-        // return Ban::find($ban);
         $data = Ban::find($ban);
-        return response()->json([
-            'data' => $data,
-            'status_code' => 200,
-            'message' => 'Lấy thành cônggg'
-        ], 200);
+        return response()->json($data);
     }
 
     /**
