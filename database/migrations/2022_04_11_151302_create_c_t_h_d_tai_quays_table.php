@@ -13,8 +13,14 @@ class CreateCTHDTaiQuaysTable extends Migration
      */
     public function up()
     {
-        Schema::create('c_t_h_d_tai_quays', function (Blueprint $table) {
-            $table->id();
+        Schema::create('cthdtaiquay', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('hdtaiquay_id');
+            $table->integer('monan_id');
+            $table->string('soluong');
+            $table->string('ghichu');
+            $table->string('tinhtrang')->default(0);
+            $table->string('giaban');
             $table->timestamps();
         });
     }
@@ -26,6 +32,6 @@ class CreateCTHDTaiQuaysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('c_t_h_d_tai_quays');
+        Schema::dropIfExists('cthdtaiquay');
     }
 }

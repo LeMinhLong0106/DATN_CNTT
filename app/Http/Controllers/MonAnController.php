@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\DanhMucMA;
-use App\Models\DonViTinh;
 use App\Models\MonAn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -22,8 +21,7 @@ class MonAnController extends Controller
     {
         $data = MonAn::all();
         $danhmuc = DanhMucMA::get();
-        $donvitinh = DonViTinh::get();
-        return view('admin.monan.index', compact('data', 'danhmuc', 'donvitinh'));
+        return view('admin.monan.index', compact('data', 'danhmuc'));
     }
 
     /**
@@ -35,7 +33,6 @@ class MonAnController extends Controller
     {
         // lấy danh mục món ăn
         $danhmuc = DanhMucMA::all();
-        // $donvitinh = DonViTinh::get();
         // return view('admin.monan.create', compact('danhmuc', 'donvitinh'));
         $data = MonAn::all();
         return response()->json([
@@ -53,7 +50,7 @@ class MonAnController extends Controller
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
-            'tenmonan' => 'required|unique:mon_ans,tenmonan',
+            'tenmonan' => 'required|unique:monan,tenmonan',
             'gia' => 'required|numeric',
             'donvitinh' => 'required',
             'danhmuc' => 'required',

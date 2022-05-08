@@ -23,6 +23,7 @@
                             <tr>
                                 <th>Mã</th>
                                 <th>Tên danh mục</th>
+                                <th>Độ ưu tiên</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
@@ -31,6 +32,7 @@
                                 <tr id="row_danhmuc_{{ $item->id }}">
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->tendm }}</td>
+                                    <td>{{ $item->uutien }}</td>
                                     <td>
                                         <button type="button" id="edit_danhmuc" class="btn btn-primary"
                                             data-id="{{ $item->id }}">Sửa</button>
@@ -62,6 +64,11 @@
                             <label for="tendm">Tên danh mục</label>
                             <input type="text" class="tendm form-control" name="tendm" id="tendm">
                             <span class="text-danger error-text tendm_err"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="uutien">Độ ưu tiên</label>
+                            <input type="text" class="uutien form-control" name="uutien" id="uutien">
+                            <span class="text-danger error-text uutien_err"></span>
                         </div>
                     </div>
 
@@ -102,6 +109,7 @@
                 $('#modal_title').html('Sửa danh mục');
                 $('#id').val(data.id);
                 $('#tendm').val(data.tendm);
+                $('#uutien').val(data.uutien);
                 $('#modal_danhmuc').modal('show');
 
             });
@@ -142,6 +150,7 @@
                     var html = '<tr id="row_danhmuc_' + res.id + '">';
                     html += '<td>' + res.id + '</td>';
                     html += '<td>' + res.tendm + '</td>';
+                    html += '<td>' + res.uutien + '</td>';
                     html += '<td>' +
                         '<button type="button" id="edit_danhmuc" class="btn btn-primary mr-1" data-id="' +
                         res.id + '">Sửa</button>' +

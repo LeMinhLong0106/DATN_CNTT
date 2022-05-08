@@ -29,8 +29,8 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('hdonline.show', $item->id) }}" class="btn btn-primary">Xem</a>
-                            <a href="{{ route('hdonline.destroy', $item->id) }}" class="btn btn-danger">Xóa</a>
+                            <a href="{{ route('hdonline.showHDO', $item->id) }}" class="btn btn-primary">Xem</a>
+                            <a href="{{ route('hdonline.deleteHDO', $item->id) }}" class="btn btn-danger">Xóa</a>
                         </td>
                     </tr>
                 @endforeach

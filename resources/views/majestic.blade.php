@@ -69,10 +69,11 @@
                 @foreach ($monan_db as $item)
                     <div class="swiper-slide slide">
                         <a href="{{ route('detail', [$item->id]) }}" class="text-decoration-none">
-
-                            <img src="images/food-img-1.png" alt="">
+                            <div>
+                                <img src="{{ asset('images/'.$item->hinhanh) }}" width="80%">
+                            </div>
                             <h3>{{ $item->tenmonan }}</h3>
-                            <div class="price">{{ $item->gia }}</div>
+                            <div class="price">{{ $item->gia }}/{{ $item->donvitinh }}</div>
                         </a>
                     </div>
                 @endforeach

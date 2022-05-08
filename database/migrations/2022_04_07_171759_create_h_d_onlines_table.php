@@ -13,8 +13,16 @@ class CreateHDOnlinesTable extends Migration
      */
     public function up()
     {
-        Schema::create('h_d_onlines', function (Blueprint $table) {
-            $table->id();
+        Schema::create('hdonline', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('hoten');
+            $table->string('diachi');
+            $table->string('sdt');
+            $table->string('ghichu');
+            $table->integer('tongtien');
+            $table->tinyInteger('tinhtrang');
+            $table->string('nhanvien_id')->default(0);
+            $table->string('khachhang_id');
             $table->timestamps();
         });
     }
@@ -26,6 +34,6 @@ class CreateHDOnlinesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('h_d_onlines');
+        Schema::dropIfExists('hdonline');
     }
 }

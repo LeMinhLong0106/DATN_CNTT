@@ -26,8 +26,8 @@ class VaiTroController extends Controller
      */
     public function create()
     {
-        $quyenCha = Quyen::where('parent_id', 0)->get();
-        return view('admin.vaitro.create', compact('quyenCha'));
+        // $quyenCha = Quyen::where('parent_id', 0)->get();
+        return view('admin.vaitro.create');
     }
 
     /**
@@ -58,9 +58,9 @@ class VaiTroController extends Controller
     public function show($vaiTro)
     {
         $data = VaiTro::find($vaiTro);
-        $quyenCha = Quyen::where('parent_id', 0)->get();
+        // $quyenCha = Quyen::where('parent_id', 0)->get();
         $quyenCheck = $data->quyens;
-        return view('admin.vaitro.show', compact('quyenCha', 'data', 'quyenCheck'));
+        return view('admin.vaitro.show', compact('data', 'quyenCheck'));
     }
 
     /**

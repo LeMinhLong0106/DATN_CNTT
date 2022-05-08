@@ -39,10 +39,10 @@
                                             <span class="badge badge-danger">Trống</span>
                                         @endif
                                     <td>
-                                        <button type="button" id="edit_ban" class="btn btn-primary"
-                                            data-id="{{ $item->id }}">Sửa</button>
-                                        <button type="button" id="delete_ban" class="btn btn-danger"
-                                            data-id="{{ $item->id }}">Xóa</button>
+                                        <button type="button" id="edit_ban" class="btn btn-primary btn-circle btn-sm"
+                                            data-id="{{ $item->id }}"><i class="fas fa-edit"></i></button>
+                                        <button type="button" id="delete_ban" class="btn btn-danger btn-circle btn-sm"
+                                            data-id="{{ $item->id }}"><i class="fas fa-times"></i></button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -70,7 +70,7 @@
                             <input type="number" class="ghe form-control" name="ghe" id="ghe">
                             <span class="text-danger error-text ghe_err"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group d-none">
                             <label for="tinhtrang">Tình trạng</label>
                             <input type="radio" class="tinhtrang" name="tinhtrang" value="0" checked> Trống
                             <input type="radio" class="tinhtrang" name="tinhtrang" value="1"> Đã đặt
@@ -86,7 +86,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('js')
@@ -112,7 +111,7 @@
                 $('#modal_title').html('Sửa bàn');
                 $('#id').val(res.id);
                 $('#ghe').val(res.ghe);
-                $('.tinhtrang').val(res.tinhtrang);
+                // $('.tinhtrang').val(res.tinhtrang);
                 $('#modal_ban').modal('show');
             });
         });
@@ -154,10 +153,10 @@
                         html += '<td><span class="badge badge-danger">Trống</span></td>';
                     }
                     html += '<td>' +
-                        '<button type="button" id="edit_ban" class="btn btn-primary mr-1" data-id="' +
-                        res.id + '">Sửa</button>' +
-                        '<button type="button" id="delete_ban" class="btn btn-danger" data-id="' +
-                        res.id + '">Xóa</button>' + '</td>';
+                        '<button type="button" id="edit_ban" class="btn btn-primary btn-circle btn-sm mr-1" data-id="' +
+                        res.id + '"><i class="fas fa-edit"></i></button>' +
+                        '<button type="button" id="delete_ban" class="btn btn-danger btn-circle btn-sm" data-id="' +
+                        res.id + '"><i class="fas fa-times"></button>' + '</td>';
                     html += '</tr>';
                     // sửa
                     if ($('#id').val()) { //id hidden

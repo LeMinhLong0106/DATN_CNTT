@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBansTable extends Migration
+class CreateCTHDSTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateBansTable extends Migration
      */
     public function up()
     {
-        Schema::create('bans', function (Blueprint $table) {
+        Schema::create('cthd', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('ghe');
-            $table->tinyInteger('tinhtrang')->default(0);
+            $table->integer('hoadon_id');
+            $table->integer('monan_id');
+            $table->string('soluong');
+            $table->string('giaban');
+            $table->string('ghichu');
+            $table->string('tinhtrang')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateBansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bans');
+        Schema::dropIfExists('cthd');
     }
 }

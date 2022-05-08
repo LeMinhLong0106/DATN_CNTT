@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CTHD;
 use App\Models\CTHDOnline;
 use App\Models\HDOnline;
+use App\Models\HoaDon;
 use App\Models\KhachHang;
 use App\Models\MonAn;
 use Darryldecode\Cart\Facades\CartFacade;
@@ -149,15 +151,17 @@ class GioHangController extends Controller
     {
         Session::forget('id');
         Session::forget('tenkh');
+        CartFacade::clear();//xóa giỏ hàng
         return redirect()->route('cart.show');
     }
 
     public function addOrder(Request $request)
     {
         $khachhang = KhachHang::find(Session::get('id'));//lấy id khách hàng đã đăng nhập
-
+        // $kh = $khachhang[0]->id;
+        // dd($khachhang->id);
         //tạo mới đơn hàng
-        $order = new HDOnline;
+        $order = new HoaDon;
         $order->khachhang_id = $khachhang->id;
         $order->tongtien = CartFacade::getTotal();
         $order->tinhtrang = 0;
@@ -165,14 +169,15 @@ class GioHangController extends Controller
         $order->hoten = $request->hoten;
         $order->diachi = $request->diachi;
         $order->sdt = $request->sdt;
+        $order->loaihd_id = 1;
         $order->save();
         
         //tạo mới đơn hàng chi tiết
         $order_id = $order->id;
         $content = CartFacade::getContent();
         foreach ($content as $value) {
-            $order_detail = new CTHDOnline;
-            $order_detail->hdonline_id = $order_id;
+            $order_detail = new CTHD;
+            $order_detail->hoadon_id = $order_id;
             $order_detail->monan_id = $value->id;
             $order_detail->soluong = $value->quantity;
             $order_detail->giaban = $value->price;

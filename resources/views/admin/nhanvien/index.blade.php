@@ -32,7 +32,8 @@
                                 <tr id="row_nhanvien_{{ $item->id }}">
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
-                                    <td>{{ $item->vaitross->mota }}</td>
+                                    <td>{{ $item->vaitro_id }}</td>
+                                    {{-- <td>{{ $item->vaitross->mota }}</td> --}}
                                     <td>
                                         <button type="button" id="edit_nhanvien" class="btn btn-primary"
                                             data-id="{{ $item->id }}">Sửa</button>

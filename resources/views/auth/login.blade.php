@@ -77,6 +77,12 @@
                                                 {{ __('Login') }}
                                             </button>
                                         </form>
+                                        <div class="text-center">
+                                            OR
+                                        </div>
+                                        <a href="{{ url('/redirectToGoogle') }}" class="btn btn-primary btn-block">Đăng
+                                            nhập Google</a>
+
                                         <hr>
                                         <div class="text-center">
                                             {{-- <a class="small" href="forgot-password.html">Forgot Password?</a> --}}

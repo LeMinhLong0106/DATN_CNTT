@@ -13,6 +13,9 @@
             <input type="submit" value="login now" class="btn">
             <p>forget password? <a href="#">click here</a></p>
             <p>don't have an account? <a href="{{ route('register_checkout') }}">create one</a></p>
+            
+            <a href="{{url('/redirectToFaceBook')}}" class="btn btn-primary btn-block">Đăng nhập FB</a>
+            
         </form>
     </div>
 @endsection

@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class MonAn extends Model
 {
-    protected $table = 'mon_ans';
+    protected $table = 'monan';
     protected $fillable = [
         'tenmonan', 'tinhtrang', 'mota', 'hinhanh', 'gia', 'donvitinh', 'danhmuc', 'created_at'
     ];
 
     public function danhmucss()
     {
-        return $this->belongsTo(DanhMucMA::class, 'danhmuc');// tham số 1 là class, tham số 2 là khóa ngoại của bảng món ăn
+        return $this->belongsTo(DanhMucMA::class, 'danhmuc', 'id');
     }
 
     // public function donvitinhs()

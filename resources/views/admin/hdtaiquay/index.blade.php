@@ -9,7 +9,8 @@
                     <th>Mã hóa đơn</th>
                     <th>Số bàn</th>
                     <th>Ngày đặt</th>
-                    <th>Nhân viên</th>
+                    <th>Nhân viên phục vụ</th>
+                    <th>Nhân viên thu ngân</th>
                     <th>Tổng tiền</th>
                     <th>Trạng thái</th>
                     <th>Chức năng</th>
@@ -20,8 +21,9 @@
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->ban_id }}</td>
-                        <td>{{ $item->created_at }}</td>
+                        <td>{{ date('d/m/Y', strtotime($item->created_at)) }}</td>
                         <td>{{ $item->nhanvien_id }}</td>
+                        <td>{{ $item->nhanvien_tn }}</td>
                         <td>{{ $item->tongtien }}</td>
                         <td>
                             @if ($item->tinhtrang == 0)
@@ -31,13 +33,17 @@
                             @endif
                         <td>
                             @if ($item->tinhtrang == 0)
-                                <button type="button" data-id="{{ $item->id }}" class="btn btn-primary edit_hd"
-                                    data-toggle="modal">Sửa</button>
-                                <button data-id="{{ $item->id }}" class="btn btn-danger delete_hd">Xóa</button>
-                                <a href="{{ route('hdtaiquay.showReceipt', [$item->id]) }}">Xem</a>
+                                <button type="button" data-id="{{ $item->id }}"
+                                    class="btn btn-primary btn-circle btn-sm edit_hd" data-toggle="modal">
+                                    <i class="fas fa-edit"></i></button>
+                                <button data-id="{{ $item->id }}" class="btn btn-danger btn-circle btn-sm delete_hd">
+                                    <i class="fas fa-times"></i></button>
                             @else
-                                <button data-id="{{ $item->id }}" class="btn btn-danger delete_hd">Xóa</button>
-                                <a href="{{ route('hdtaiquay.showReceipt', [$item->id]) }}">Xem</a>
+                                <button data-id="{{ $item->id }}" class="btn btn-danger btn-circle btn-sm delete_hd"><i
+                                        class="fas fa-times"></i></button>
+                                <a class="btn btn-warning btn-circle btn-sm"
+                                    href="{{ route('hdtaiquay.showReceipt', [$item->id]) }}">
+                                    <i class="fas fa-eye"></i></a>
                             @endif
 
 
@@ -71,7 +77,7 @@
                                 {{-- <th>Hành động</th> --}}
                             </tr>
                         </thead>
-                        <tbody id="cthd_table_body"> 
+                        <tbody id="cthd_table_body">
                         </tbody>
                     </table>
                 </div>
@@ -115,7 +121,7 @@
             $('#btnpayment_id').val(id); // gán id vào input
             // console.log(id);
             $.ajax({
-                url: '{{ route('hdtaiquay.show', ':id') }}'.replace(':id', id),
+                url: '{{ route('hdtaiquay.showHDTQ', ':id') }}'.replace(':id', id),
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
@@ -136,7 +142,7 @@
                         }
                         html += '<td>' + item.soluong * item.giaban + '</td>';
                         // html +=
-                        //     '<td><button type="button" class="btn btn-danger delete_cthd" data-id="' +
+                        //     '<td><button type="button" class="btn btn-danger btn-circle delete_cthd" data-id="' +
                         //     item.id + '">Xóa</button></td>';
                         html += '</tr>';
                         html += '</tr>';

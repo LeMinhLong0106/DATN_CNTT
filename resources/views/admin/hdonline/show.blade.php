@@ -22,39 +22,48 @@
                     </div>
                 </div>
                 <br />
-                <h4>Danh sách món ăn</h4>
-                <table class="table table-striped table-class">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>hình ảnh</th>
-                            <th>Tên món</th>
-                            <th>số lượng</th>
-                            <th>giá bán</th>
-                            <th>tổng tiền</th>
-                            <th>chức năng</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($cthd as $item)
+                <form action="{{ route('hdonline.thanhtoanon', [$data->id]) }}" method="post">
+                    @csrf
+                    <h4>Danh sách món ăn</h4>
+                    <table class="table table-striped table-class">
+                        <thead>
                             <tr>
-                                <td>{{ $loop->index + 1 }}</td>
-                                <td><img src="{{ asset('images/' . $item->monans->hinhanh) }}" alt="" width="100px"></td>
-                                <td>{{ $item->monans->tenmonan }}</td>
-                                <td>{{ $item->soluong }}</td>
-                                <td>{{ number_format($item->giaban) }} VNĐ</td>
-                                <td>{{ number_format($item->soluong * $item->giaban) }} VNĐ</td>
-                                <td>
-                                    <a href="" class="btn btn-danger">Xóa</a>
-                                </td>
+                                <th>STT</th>
+                                <th>Hình ảnh</th>
+                                <th>Tên món</th>
+                                <th>Số lượng</th>
+                                <th>Ghi chú</th>
+                                <th>Giá bán</th>
+                                <th>tổng tiền</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <hr />
-                <div style="text-align:right;">
-                    <h4>Tổng tiền: {{$data->tongtien}}</h4>
-                </div>
+                        </thead>
+                        <tbody>
+                            @foreach ($cthd as $item)
+                                <tr>
+                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td><img src="{{ asset('images/' . $item->monanss->hinhanh) }}" alt="" width="100px">
+                                    </td>
+                                    <td>{{ $item->monanss->tenmonan }}</td>
+                                    <td>{{ $item->soluong }}</td>
+                                    <td>{{ $item->ghichu }}</td>
+                                    <td>{{ number_format($item->giaban) }} VNĐ</td>
+                                    <td>{{ number_format($item->soluong * $item->giaban) }} VNĐ</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <hr />
+                    <div style="text-align:right;">
+                        <h4>Tổng tiền: {{ $data->tongtien }}</h4>
+                    </div>
+
+                    <div style="text-align:center;">
+                        <div>
+                            <input type="submit" name="them" value="Thanh toán" class="btn btn-primary" />
+                            <a href="" class="btn btn-primary">Trở về</a>
+                        </div>
+                    </div>
+                </form>
             </div>
 
         </div>

@@ -17,6 +17,9 @@ class BanController extends Controller
     {
         $data = Ban::all(); // lấy toàn bộ dữ liệu từ bảng ban
         return view('admin.ban.index', compact('data'));
+        // return response()->json([
+        //     'data' => $data,
+        // ],200);
     }
 
     /**

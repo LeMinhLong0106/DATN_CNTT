@@ -13,8 +13,10 @@ class CreateDSQuyensTable extends Migration
      */
     public function up()
     {
-        Schema::create('d_s_quyens', function (Blueprint $table) {
-            $table->id();
+        Schema::create('vaitro_quyen', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('vaitro_id');
+            $table->string('quyen_id');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateDSQuyensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('d_s_quyens');
+        Schema::dropIfExists('vaitro_quyen');
     }
 }

@@ -13,8 +13,9 @@ class CreateDanhMucMASTable extends Migration
      */
     public function up()
     {
-        Schema::create('danh_muc_m_a_s', function (Blueprint $table) {
-            $table->id();
+        Schema::create('danhmucmon', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('tendm');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateDanhMucMASTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('danh_muc_m_a_s');
+        Schema::dropIfExists('danhmucmon');
     }
 }

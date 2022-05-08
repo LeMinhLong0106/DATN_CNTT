@@ -13,7 +13,7 @@
                     </div>
                     <div class="content">
                         <h3>{{ $item->tenmonan }}</h3>
-                        <div class="price">{{ $item->gia }}/{{ $item->donvitinhs->tendvt }}</div>
+                        <div class="price">{{ $item->gia }}/{{ $item->donvitinh }}</div>
                         <a href="{{ route('detail', [$item->id]) }}" class="btn">Chi tiết</a>
                     </div>
                 </div>

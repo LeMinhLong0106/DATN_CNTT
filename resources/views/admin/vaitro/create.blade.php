@@ -40,7 +40,7 @@
                                 <input type="checkbox" class="checkall"> Chọn tất cả
                             </label>
                         </div>
-                        @foreach ($quyenCha as $item)
+                        {{-- @foreach ($quyenCha as $item)
                             <div class="card border-primary col-md-4">
                                 <div class="card-header">
                                     <label>
@@ -63,7 +63,7 @@
                                 </div>
 
                             </div>
-                        @endforeach
+                        @endforeach --}}
                     </div>
 
                 </div>

@@ -13,8 +13,12 @@ class CreateCTHDOnlinesTable extends Migration
      */
     public function up()
     {
-        Schema::create('c_t_h_d_onlines', function (Blueprint $table) {
-            $table->id();
+        Schema::create('cthdonline', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('hdonline_id');
+            $table->integer('monan_id');
+            $table->string('soluong');
+            $table->string('giaban');
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ class CreateCTHDOnlinesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('c_t_h_d_onlines');
+        Schema::dropIfExists('cthdonline');
     }
 }

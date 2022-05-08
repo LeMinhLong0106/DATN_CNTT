@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ban;
+use App\Models\CTHD;
 use App\Models\CTHDTaiQuay;
 use App\Models\DanhMucMA;
 use App\Models\HDTaiQuay;
+use App\Models\HoaDon;
 use App\Models\MonAn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,37 +22,37 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $data = HDTaiQuay::all();
+        $data = HoaDon::all();
         $bans = Ban::all();
         return view('admin.order.index', compact('data', 'bans'));
     }
 
     public function giaodienDB()
     {
-        $data = HDTaiQuay::all();
-        // $cthd = CTHDTaiQuay::orderBy('monan_id', 'desc')->get();// sếp xếp theo id món ăn giảm dần
-        // $cthd = CTHDTaiQuay::get(); // sếp xếp theo id món ăn tăng dần
-        // $cthd = CTHDTaiQuay::join('mon_ans', 'monan_id', '=', 'mon_ans.id')->join('danh_muc_m_a_s', 'danhmuc', '=', 'danh_muc_m_a_s.id')->orderBy('danh_muc_m_a_s.id', 'desc')->get(); // sếp xếp theo id danh mục giảm dần
-        // $cthd = CTHDTaiQuay::join('mon_ans', 'monan_id', '=', 'mon_ans.id')->join('danh_muc_m_a_s', 'danhmuc', '=', 'danh_muc_m_a_s.id')->get(); // sếp xếp theo id danh mục giảm dần
+        $data = HoaDon::where('loaihd_id',0)->get();
+        // $cthd = CTHD::orderBy('monan_id', 'desc')->get();// sếp xếp theo id món ăn giảm dần
+        // $cthd = CTHD::get(); // sếp xếp theo id món ăn tăng dần
+        // $cthd = CTHD::join('mon_ans', 'monan_id', '=', 'mon_ans.id')->join('danh_muc_m_a_s', 'danhmuc', '=', 'danh_muc_m_a_s.id')->orderBy('danh_muc_m_a_s.id', 'desc')->get(); // sếp xếp theo id danh mục giảm dần
+        // $cthd = CTHD::join('mon_ans', 'monan_id', '=', 'mon_ans.id')->join('danh_muc_m_a_s', 'danhmuc', '=', 'danh_muc_m_a_s.id')->get(); // sếp xếp theo id danh mục giảm dần
         
         // $cthd = DB::table('mon_ans')
         //     ->join('cthdtaiquay', 'mon_ans.id', '=', 'cthdtaiquay.monan_id')
         //     ->join('danh_muc_m_a_s', 'mon_ans.id', '=', 'danh_muc_m_a_s.id')
         //     ->get();
 
-        $cthd = DB::table('cthdtaiquay')
-            ->leftJoin('mon_ans', 'cthdtaiquay.monan_id', '=', 'mon_ans.id')
-            ->leftJoin('danh_muc_m_a_s', 'mon_ans.danhmuc', '=', 'danh_muc_m_a_s.id')
-            ->select(['cthdtaiquay.*', 'mon_ans.tenmonan', 'danh_muc_m_a_s.tendm'])
-            ->orderBy('danh_muc_m_a_s.id', 'desc')
+        $cthd = DB::table('cthd')
+            ->leftJoin('monan', 'cthd.monan_id', '=', 'monan.id')
+            ->leftJoin('danhmucmon', 'monan.danhmuc', '=', 'danhmucmon.id')
+            ->select(['cthd.*', 'monan.tenmonan', 'danhmucmon.tendm', 'danhmucmon.uutien'])
+            ->orderBy('danhmucmon.uutien')
             ->get();
 
             // $cthd = DB::table('mon_ans')
             // ->leftJoin('cthdtaiquay', 'mon_ans.id', '=', 'cthdtaiquay.monan_id')
             // ->get();
 
-        // $a = CTHDTaiQuay::with(['monanss'])->first()->monanss['tenmonan'];// lấy ra tên món ăn đầu tiên trong bảng cthdtaiquay
-        // $cthd = CTHDTaiQuay::with(['monanss'])->get();// lấy ra tất cả các món ăn trong bảng cthdtaiquay   
+        // $a = CTHD::with(['monanss'])->first()->monanss['tenmonan'];// lấy ra tên món ăn đầu tiên trong bảng cthdtaiquay
+        // $cthd = CTHD::with(['monanss'])->get();// lấy ra tất cả các món ăn trong bảng cthdtaiquay   
         // dd($cthd);
         return view('admin.order.giaodienDB', compact('data', 'cthd'));
     }
@@ -62,35 +64,34 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $data = HDTaiQuay::all();
-        $danhmucs = DanhMucMA::all();
-        $monans = MonAn::all();
-        $bans = Ban::get('id');
-        // dd($bans);
-        return view('admin.order.create', compact('data', 'danhmucs', 'monans', 'bans'));
+        // $data = HoaDon::all();
+        // $danhmucs = DanhMucMA::all();
+        // $monans = MonAn::all();
+        // $bans = Ban::get('id');
+        // // dd($bans);
+        // return view('admin.order.create', compact('data', 'danhmucs', 'monans', 'bans'));
     }
 
     public function table_status()
     {
-        $data = HDTaiQuay::all();
+        $data = HoaDon::all();
         $danhmucs = DanhMucMA::all();
         $monans = MonAn::all();
         $bans = Ban::all();
         return view('admin.order.table_status', compact('data', 'bans', 'monans', 'danhmucs'));
-        // return 'hi';
     }
 
-    public function order_status()
-    {
-        $data = HDTaiQuay::all();
-        $bans = Ban::all();
-        $saleDetails =  CTHDTaiQuay::all();
-        return view('admin.order.order_status', compact('data', 'bans', 'saleDetails'));
-    }
+    // public function order_status()
+    // {
+    //     $data = HoaDon::all();
+    //     $bans = Ban::all();
+    //     $saleDetails =  CTHDTaiQuay::all();
+    //     return view('admin.order.order_status', compact('data', 'bans', 'saleDetails'));
+    // }
 
     public function getSaleDetails($table_id) //nhấn vào bàn thì hiển thị danh sách món ăn
     {
-        $sale =  HDTaiQuay::where('ban_id', $table_id)->where('tinhtrang', 0)->first(); //lấy hóa đơn có trạng thái 0
+        $sale = HoaDon::where('ban_id', $table_id)->where('tinhtrang', 0)->first(); //lấy hóa đơn có trạng thái 0
         $html = " ";
         if ($sale) {
             $sale_id = $sale->id;
@@ -108,12 +109,12 @@ class OrderController extends Controller
 
         $monans = MonAn::find($id_mon);
 
-        $sale = HDTaiQuay::where('ban_id', $table_id)->where('tinhtrang', 0)->first();
+        $sale = HoaDon::where('ban_id', $table_id)->where('tinhtrang', 0)->first();
         if (!$sale) {
             $user = Auth::user();
-            $sale = new HDTaiQuay;
+            $sale = new HoaDon;
             $sale->ban_id = $table_id;
-            $sale->nhanvien_id = $user->id;
+            $sale->nhanvien_id = $user->name;
             $sale->save();
             // lưu bàn
             $table = Ban::find($table_id);
@@ -123,8 +124,8 @@ class OrderController extends Controller
             $sale_id =  $sale->id;
         }
         // lưu chi tiết hóa đơn
-        $saleDetail = new CTHDTaiQuay;
-        $saleDetail->hdtaiquay_id = $sale_id;
+        $saleDetail = new CTHD;
+        $saleDetail->hoadon_id = $sale_id;
         $saleDetail->monan_id = $monans->id;
         $saleDetail->giaban = $monans->gia;
         $saleDetail->soluong = $request->product_quantity;
@@ -138,20 +139,10 @@ class OrderController extends Controller
         return $html;
     }
 
-    // public function confirmOrder(Request $request)
-    // {
-    //     $sale_id = $request->sale_id;
-    //     $sale = HDTaiQuay::find($sale_id);
-    //     $sale->tinhtrang = 1;
-    //     $sale->save();
-    //     $html =  $this->xyz($sale_id);
-    //     return $html;
-    // }
-
     private function xyz($sale_id)
     {
         // hiển thị bên chi tiết
-        $saleDetails =  CTHDTaiQuay::where('hdtaiquay_id', $sale_id)->get();
+        $saleDetails =  CTHD::where('hoadon_id', $sale_id)->get();
         $html = " ";
 
         $html .= "<table class='table table-responsive'>
@@ -212,7 +203,7 @@ class OrderController extends Controller
         $html .= "</tbody>
             </table>";
 
-        $sale_tp = HDTaiQuay::find($sale_id);
+        $sale_tp = HoaDon::find($sale_id);
         $html .= "<h3>Tổng tiền: " . $sale_tp->tongtien . "</h3>";
 
         return  $html;
@@ -221,10 +212,10 @@ class OrderController extends Controller
     public function confirmOrder(Request $request)
     {
         $id_cthd = $request->sale_id;
-        $cthd = CTHDTaiQuay::find($id_cthd);
+        $cthd = CTHD::find($id_cthd);
         $cthd->tinhtrang = 1;
         $cthd->save();
-        $id_hd = $cthd->hdtaiquay_id;
+        $id_hd = $cthd->hoadon_id;
         $html =  $this->xyz($id_hd);
         return  $html;
     }
@@ -232,12 +223,12 @@ class OrderController extends Controller
     public function deleteOrder(Request $request)
     {
         $id_cthd = $request->sale_id;
-        $cthd = CTHDTaiQuay::find($id_cthd);
+        $cthd = CTHD::find($id_cthd);
 
-        $id_hd = $cthd->hdtaiquay_id;
+        $id_hd = $cthd->hoadon_id;
         $cthd->delete(); //xoa cthd
 
-        $hd = HDTaiQuay::find($id_hd);
+        $hd = HoaDon::find($id_hd);
         $hd->tongtien = $hd->tongtien - ($cthd->giaban * $cthd->soluong);
         $hd->save(); //luu hd
         $html =  $this->xyz($id_hd);
@@ -247,13 +238,13 @@ class OrderController extends Controller
     public function changeQuantityIn(Request $request)
     {
         $id_cthd = $request->sale_id;
-        $cthd = CTHDTaiQuay::find($id_cthd);
+        $cthd = CTHD::find($id_cthd);
 
         $cthd->soluong = $request->quantity;
         $cthd->save();
 
-        $id_hd = $cthd->hdtaiquay_id;
-        $hd = HDTaiQuay::find($id_hd);
+        $id_hd = $cthd->hoadon_id;
+        $hd = HoaDon::find($id_hd);
 
         $hd->tongtien = $hd->tongtien + ($cthd->giaban * $cthd->soluong) - ($cthd->giaban * ($cthd->soluong - 1));
 
@@ -266,13 +257,13 @@ class OrderController extends Controller
     public function changeQuantityDe(Request $request)
     {
         $id_cthd = $request->sale_id;
-        $cthd = CTHDTaiQuay::find($id_cthd);
+        $cthd = CTHD::find($id_cthd);
 
         $cthd->soluong = $request->quantity;
         $cthd->save();
 
-        $id_hd = $cthd->hdtaiquay_id;
-        $hd = HDTaiQuay::find($id_hd);
+        $id_hd = $cthd->hoadon_id;
+        $hd = HoaDon::find($id_hd);
         $hd->tongtien = $hd->tongtien - ($cthd->giaban * $cthd->soluong) + ($cthd->giaban * ($cthd->soluong - 1));
 
         $hd->save(); //luu hd
@@ -296,8 +287,8 @@ class OrderController extends Controller
         // $data->ghichu = $request->ghichu;
         // $data->save();
         // return redirect()->route('admin.order.index');
-        $add = HDTaiQuay::create($request->all());
-        // $add = CTHDTaiQuay::create($request->all());
+        $add = HoaDon::create($request->all());
+        // $add = CTHD::create($request->all());
 
         if ($add) {
             return redirect()->route('order.index')->with('success', 'Thêm mới thành công');

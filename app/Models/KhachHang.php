@@ -8,6 +8,7 @@ class KhachHang extends Model
 {
     protected $table = 'khachhang';
     protected $fillable = [
-        'tenkh',	'email',	'sdt',	'diachi',	'matkhau',
+        'tenkh',	'email',	'sdt',	'diachi',	'matkhau', 'facebook_id',
     ];
 }
+ 

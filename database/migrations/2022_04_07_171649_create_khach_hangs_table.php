@@ -13,8 +13,14 @@ class CreateKhachHangsTable extends Migration
      */
     public function up()
     {
-        Schema::create('khach_hangs', function (Blueprint $table) {
-            $table->id();
+        Schema::create('khachhang', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('tenkh');
+            $table->string('email');
+            $table->string('sdt');
+            $table->string('diachi');
+            $table->string('matkhau');
+            $table->string('facebook_id')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +32,6 @@ class CreateKhachHangsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('khach_hangs');
+        Schema::dropIfExists('khachhang');
     }
 }

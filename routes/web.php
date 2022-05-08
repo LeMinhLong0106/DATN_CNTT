@@ -25,7 +25,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/majestic', 'GiaoDienController@majestic')->name('majestic');
 Route::get('/menuu', 'GiaoDienController@menu')->name('menu');
 Route::get('/detail/{id}', 'GiaoDienController@detail')->name('detail');
-Route::get('/about', 'GiaoDienController@about')->name('about');
+// Route::get('/about', 'GiaoDienController@about')->name('about');
 Route::get('/search', 'GiaoDienController@search')->name('search');
 Route::get('/addToCart/{id}', 'GiaoDienController@addToCart')->name('addToCart');
 Route::get('/showCart', 'GiaoDienController@showCart')->name('showCart');
@@ -47,12 +47,23 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::resource('quyen', 'QuyenController');
     Route::post('updateMonAn/{id}', 'MonAnController@updateMonAn')->name('monan.updateMonAn');
 
-    Route::resource('hdonline', 'HDOnlineController');
-    Route::resource('hdtaiquay', 'HDTaiQuayController');
-    Route::delete('hdtaiquay/deleteHD/{id}', 'HDTaiQuayController@deleteHD')->name('hdtaiquay.deleteHD');
-    Route::delete('hdtaiquay/deleteCTHD/{id}', 'HDTaiQuayController@deleteCTHD')->name('hdtaiquay.deleteCTHD');
-    Route::post('hdtaiquay/thanhtoan/{id}', 'HDTaiQuayController@thanhtoan')->name('hdtaiquay.thanhtoan');
-    Route::get('hdtaiquay/showReceipt/{id}', 'HDTaiQuayController@showReceipt')->name('hdtaiquay.showReceipt');
+    // Route::resource('hdonline', 'HDOnlineController');
+    // Route::resource('hdtaiquay', 'HDTaiQuayController');
+    // Route::delete('hdtaiquay/deleteHD/{id}', 'HDTaiQuayController@deleteHD')->name('hdtaiquay.deleteHD');
+    // Route::delete('hdtaiquay/deleteCTHD/{id}', 'HDTaiQuayController@deleteCTHD')->name('hdtaiquay.deleteCTHD');
+    // Route::post('hdtaiquay/thanhtoan/{id}', 'HDTaiQuayController@thanhtoan')->name('hdtaiquay.thanhtoan');
+    // Route::get('hdtaiquay/showReceipt/{id}', 'HDTaiQuayController@showReceipt')->name('hdtaiquay.showReceipt');
+
+    Route::get('hdtaiquay', 'HoaDonController@indexHDTQ')->name('hdtaiquay.indexHDTQ');
+    Route::get('hdonline', 'HoaDonController@indexHDO')->name('hdonline.indexHDO');
+    Route::get('hdtaiquay/{id}', 'HoaDonController@showHDTQ')->name('hdtaiquay.showHDTQ');
+    Route::get('hdonline/{id}', 'HoaDonController@showHDO')->name('hdonline.showHDO');
+    Route::delete('hdtaiquay/deleteHD/{id}', 'HoaDonController@deleteHD')->name('hdtaiquay.deleteHD');
+    Route::delete('hdonline/deleteHDO/{id}', 'HoaDonController@deleteHDO')->name('hdonline.deleteHDO');
+    Route::delete('hdtaiquay/deleteCTHD/{id}', 'HoaDonController@deleteCTHD')->name('hdtaiquay.deleteCTHD');
+    Route::post('hdtaiquay/thanhtoan/{id}', 'HoaDonController@thanhtoan')->name('hdtaiquay.thanhtoan');
+    Route::post('hdonline/thanhtoanon/{id}', 'HoaDonController@thanhtoanon')->name('hdonline.thanhtoanon');
+    Route::get('hdtaiquay/showReceipt/{id}', 'HoaDonController@showReceipt')->name('hdtaiquay.showReceipt');
 
     Route::resource('order', 'OrderController');
     Route::post('order/orderFood', 'OrderController@orderFood')->name('order.orderFood');
@@ -60,6 +71,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::post('order/changeQuantityIn', 'OrderController@changeQuantityIn')->name('order.changeQuantityIn');
     Route::post('order/confirmOrder', 'OrderController@confirmOrder')->name('order.confirmOrder');
     Route::post('order/changeQuantityDe', 'OrderController@changeQuantityDe')->name('order.changeQuantityDe');
+
+    Route::get('baocao', 'BaoCaoController@index')->name('baocao.index');
 });
 
 Route::group(['prefix' => 'cart'], function () {
@@ -103,8 +116,7 @@ Route::get('order/giaodienDB', 'OrderController@giaodienDB')->name('order.giaodi
 //     Route::get('hdtaiquay/showReceipt/{id}', 'HDTaiQuayController@showReceipt')->name('hdtaiquay.showReceipt');
 // });
 
-// if (Auth::user()->vaitro_id == 1) {
-//     Route::get('/', 'ThunganController@index')->name('thungan.index');
-// } else {
-//     Route::get('/', 'ThunganController@index')->name('thungan.index');
-// }
+
+// đăng nhập với gg
+Route::get('redirectToGoogle', 'SocialController@redirectToGoogle')->name('redirectToGoogle');
+Route::get('callbackGoogle', 'SocialController@callbackGoogle')->name('callbackGoogle');

@@ -10,8 +10,10 @@ class GiaoDienController extends Controller
 {
     public function majestic()
     {
-        $monan_moi = MonAn::where('danhmuc', '=', 1)->orderBy('created_at', 'desc')->take(8)->get();
-        $monan_db = MonAn::where('danhmuc', '=', 6)->get();
+        // món chính mới nhất
+        $monan_moi = MonAn::where('danhmuc', '=', 3)->orderBy('created_at', 'desc')->take(8)->get();
+        // món đặc biệt
+        $monan_db = MonAn::where('danhmuc', '=', 4)->get();
         return view('majestic', compact('monan_db', 'monan_moi'));
     }
 

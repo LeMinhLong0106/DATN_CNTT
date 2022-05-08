@@ -31,15 +31,15 @@
                         @if ($ma->danhmuc == $item->id)
                             <div class="box">
                                 <div class="image">
-                                    <img src="{{ asset('images/' . $ma->hinhanh) }}" alt="" width="100px">
+                                    <img src="{{ asset('images/' . $ma->hinhanh) }}" alt="" >
                                 </div>
                                 <div class="content">
                                     <h3>{{ $ma->tenmonan }}</h3>
                                     <div class="price">{{ $ma->gia }}/{{ $ma->donvitinh }}</div>
                                     <a href="{{ route('detail', [$item->id]) }}" class="btn">Chi tiết</a>
 
-                                    <a href="#" data-url="{{ route('addToCart', [$ma->id]) }}"
-                                        class="btn btn-primary add_to_cart">Them gio</a>
+                                    {{-- <a href="#" data-url="{{ route('addToCart', [$ma->id]) }}"
+                                        class="btn btn-primary add_to_cart">Them gio</a> --}}
                                 </div>
                             </div>
                         @endif

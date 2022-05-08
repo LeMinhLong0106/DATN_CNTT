@@ -114,10 +114,16 @@
                         <div id="collapse_3" class="collapse" aria-labelledby="headingTwo"
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <a class="collapse-item" href="{{ route('hdtaiquay.index') }}">Tại chỗ</a>
-                                <a class="collapse-item" href="{{ route('hdonline.index') }}">Online</a>
+                                <a class="collapse-item" href="{{ route('hdtaiquay.indexHDTQ') }}">Tại chỗ</a>
+                                <a class="collapse-item" href="{{ route('hdonline.indexHDO') }}">Online</a>
                             </div>
                         </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('baocao.index') }}">
+                            <i class="fas fa-user-lock"></i>
+                            <span>Báo cáo</span></a>
                     </li>
                     <!-- Divider -->
                     <hr class="sidebar-divider">
@@ -325,7 +331,6 @@
     <!-- Page level plugins -->
     <script src="{{ asset('datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('datatables/dataTables.bootstrap4.min.js') }}"></script>
-
     <!-- Page level custom scripts -->
     <script src="{{ asset('js/datatables-demo.js') }}"></script>
 

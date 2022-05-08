@@ -6,6 +6,7 @@ use App\Models\Ban;
 use App\Models\CTHDTaiQuay;
 use App\Models\HDTaiQuay;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HDTaiQuayController extends Controller
 {
@@ -64,8 +65,10 @@ class HDTaiQuayController extends Controller
 
     public function thanhtoan($id)
     {
+        $user = Auth::user();
         $sale = HDTaiQuay::find($id);
         $sale->tinhtrang = 1;
+        $sale->nhanvien_tn = $user->name;
         $sale->save();
         $tabs = Ban::find($sale->ban_id);
         $tabs->tinhtrang = 0;

@@ -42,7 +42,7 @@ class DanhMucMAController extends Controller
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
-            'tendm' => 'required|unique:danh_muc_m_a_s,tendm',
+            'tendm' => 'required|unique:danhmucmon,tendm',
         ], [
             'tendm.required' => 'Bạn chưa nhập tên danh mục',
             'tendm.unique' => 'Tên danh mục đã tồn tại',
@@ -57,6 +57,7 @@ class DanhMucMAController extends Controller
                 ['id' => $request->id],
                 [
                     'tendm' => $request->tendm,
+                    'uutien' => $request->uutien,
                 ]
             );
             return response()->json($data);

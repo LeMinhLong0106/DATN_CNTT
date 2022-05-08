@@ -13,8 +13,16 @@ class CreateMonAnsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mon_ans', function (Blueprint $table) {
-            $table->id();
+        Schema::create('monan', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('tenmonan');
+            $table->tinyInteger('tinhtrang')->default(0);
+            $table->string('mota');
+            $table->string('hinhanh');
+            $table->integer('gia');
+            $table->integer('thoigian');
+            $table->string('donvitinh');
+            $table->string('danhmuc');
             $table->timestamps();
         });
     }
@@ -26,6 +34,6 @@ class CreateMonAnsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mon_ans');
+        Schema::dropIfExists('monan');
     }
 }

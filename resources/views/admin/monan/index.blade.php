@@ -34,7 +34,7 @@
                             <input type="number" class="form-control" name="thoigian" placeholder="Nhập thời gian">
                             <span class="text-danger error-text thoigian_err"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group d-none">
                             <label for="tinhtrang">Tình trạng</label>
                             <input type="radio" name="tinhtrang" value="1" checked> Còn
                             <input type="radio" name="tinhtrang" value="0"> Hết
@@ -52,6 +52,7 @@
                                 <option value="Phần">Phần</option>
                                 <option value="Con">Con</option>
                                 <option value="Kg">Kg</option>
+                                <option value="Chén">Chén</option>
                             </select>
                             <span class="text-danger error-text donvitinh_err"></span>
                         </div>
@@ -127,6 +128,7 @@
                                 <option value="Phần">Phần</option>
                                 <option value="Con">Con</option>
                                 <option value="Kg">Kg</option>
+                                <option value="Chén">Chén</option>
                             </select>
                             <span class="text-danger error-text donvitinh_err"></span>
                         </div>
@@ -226,23 +228,31 @@
                     type: 'GET',
                     url: '{{ route('monan.create') }}',
                     success: function(data) {
-                        // console.log(data.danhmuc[0].id);
+                        // console.log(data.danhmuc[0].tendm);
                         $('tbody').html("");
                         // $.each(data.danhmuc, function(key, dm) {(dm.id == value.danhmuc ? dm.tendm : '')});
-                        $.each(data.data, function(key, value) {                        
-                            $('tbody').append('<tr>\
-                                    <td>' + value.id + '</td>\
-                                    <td><img src="{{ asset('images/') }}/' + value.hinhanh + '" width="100px"></td>\
-                                    <td>' + value.tenmonan + '</td>\
-                                    <td>' + value.gia + '</td>\
-                                    <td>' + (value.tinhtrang == 1 ? '<span class="badge badge-success">Còn bán</span>' : '<span class="badge badge-danger">Hết</span>') + '</td>\
-                                    <td>' + value.donvitinh + '</td>\
-                                    <td> '+value.danhmuc+'</td>\
-                                    <td>\
-                                        <button type="button" value="' + value.id + '" class="btn btn-primary edit_btn"><i class="fas fa-edit"></i></button>\
-                                        <button type="button" value="' + value.id + '" class="btn btn-danger delete_btn"><i class="fas fa-trash"></i></button>\
-                                    </td>\
-                                </tr>');
+                        $.each(data.data, function(key, value) {
+                            $('tbody').append(
+                                '<tr>' +
+                                '<td>' + value.id + '</td>' +
+                                '<td><img src="{{ asset('images/') }}/' + value.hinhanh +
+                                '" width="100px"></td>' +
+                                '<td>' + value.tenmonan + '</td>' +
+                                '<td>' + value.gia + '</td>' +
+                                '<td>' + (value.tinhtrang == 1 ?
+                                    '<span class="badge badge-success">Còn bán</span>' :
+                                    '<span class="badge badge-danger">Hết</span>') +
+                                '</td>' +
+                                '<td>' + value.donvitinh + '</td>' +
+                                '<td>' + value.danhmuc + '</td>' +
+                                '<td>' +
+                                '<button type="button" value="' + value.id +
+                                '" class="btn btn-primary edit_btn"><i class="fas fa-edit"></i></button>' +
+                                '<button type="button" value="' + value.id +
+                                '" class="btn btn-danger delete_btn"><i class="fas fa-trash"></i></button>' +
+                                '</td>' +
+                                '</tr>'
+                            );
                         });
                     }
                 });
@@ -630,7 +640,6 @@
         });
     </script>
 @endsection --}}
-
 
 {{-- @extends('layouts.admin')
 @section('content_admin')

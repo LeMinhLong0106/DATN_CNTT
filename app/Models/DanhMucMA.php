@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class DanhMucMA extends Model
 {
     public $timestamps = false;
-    protected $table = 'danh_muc_m_a_s';
+    protected $table = 'danhmucmon';
     protected $fillable = [
-        'tendm','created_at', 'updated_at'
+        'tendm','uutien','created_at', 'updated_at'
     ];
 
-    // public function dm_monan()
-    // {
-    //     return $this->hasMany(MonAn::class, 'danhmuc_id', 'id');
-    // }
+    public function monan()
+    {
+        return $this->hasMany(MonAn::class, 'danhmuc', 'id');
+    }
     
 }
